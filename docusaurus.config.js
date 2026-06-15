@@ -12,10 +12,8 @@ const personal = {
   shortName: 'Hamza Farooq',
   role: 'Data Analyst',
   github: 'https://github.com/Hamzas-github',
-  // TODO: replace with your real LinkedIn URL
-  linkedin: 'https://www.linkedin.com/in/your-linkedin/',
-  // TODO: confirm the email you want recruiters to use
-  email: 'poiseivy6@gmail.com',
+  linkedin: 'https://www.linkedin.com/in/hamza-farooq-tech-savvy/',
+  email: 'hamzaf14@gmail.com',
 };
 
 /** @type {import('@docusaurus/types').Config} */

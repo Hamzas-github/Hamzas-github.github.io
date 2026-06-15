@@ -38,5 +38,5 @@ You can see all of this in practice in my
 I'm open to data analyst roles and collaboration.
 
 - 🐙 **GitHub:** [Hamzas-github](https://github.com/Hamzas-github)
-- 💼 **LinkedIn:** [your LinkedIn](https://www.linkedin.com/in/your-linkedin/)
-- ✉️ **Email:** [poiseivy6@gmail.com](mailto:poiseivy6@gmail.com)
+- 💼 **LinkedIn:** [hamza-farooq-tech-savvy](https://www.linkedin.com/in/hamza-farooq-tech-savvy/)
+- ✉️ **Email:** [hamzaf14@gmail.com](mailto:hamzaf14@gmail.com)
