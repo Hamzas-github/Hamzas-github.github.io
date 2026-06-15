@@ -1,0 +1,70 @@
+.section {
+  padding: 4.5rem 0;
+}
+
+.sectionHead {
+  text-align: center;
+  max-width: 60ch;
+  margin: 0 auto 2.5rem;
+}
+
+.sectionTitle {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.sectionLead {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 1.1rem;
+}
+
+.cardCol {
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  height: 100%;
+  padding: 1.75rem;
+  border-radius: 16px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-card-background-color);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.cardIcon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.cardDesc {
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 1rem;
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-800);
+}

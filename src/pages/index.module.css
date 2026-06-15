@@ -1,0 +1,73 @@
+/**
+ * Homepage hero + section styles.
+ */
+
+.heroBanner {
+  position: relative;
+  padding: 6rem 0 5rem;
+  overflow: hidden;
+  background:
+    radial-gradient(1100px 480px at 80% -10%, rgba(37, 194, 160, 0.18), transparent 60%),
+    radial-gradient(900px 420px at 0% 10%, rgba(72, 119, 255, 0.16), transparent 55%);
+}
+
+.heroEyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ifm-color-primary);
+  margin-bottom: 0.75rem;
+}
+
+.heroTitle {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+  margin-bottom: 1.25rem;
+}
+
+.heroAccent {
+  background: linear-gradient(90deg, var(--ifm-color-primary), #4877ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  color: var(--ifm-color-emphasis-700);
+  max-width: 60ch;
+  margin-bottom: 2rem;
+}
+
+.heroButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.heroLinks {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.heroLinks a {
+  color: var(--ifm-color-emphasis-800);
+}
+
+.heroLinks a:hover {
+  color: var(--ifm-color-primary);
+}
+
+@media screen and (max-width: 768px) {
+  .heroBanner {
+    padding: 4rem 0 3rem;
+  }
+}

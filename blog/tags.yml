@@ -1,0 +1,14 @@
+data-analysis:
+  label: Data Analysis
+  permalink: /data-analysis
+  description: Posts about data analysis and workflow.
+
+sql:
+  label: SQL
+  permalink: /sql
+  description: Working with SQL and databases.
+
+python:
+  label: Python
+  permalink: /python
+  description: Python, pandas, and data tooling.
