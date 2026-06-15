@@ -20,10 +20,12 @@ keywords: [data analysis, SQL, Python, pandas, Power BI, data visualization, cas
 
 ## The question
 
-**What actually drives rent in London, and where do you get the most space for your
-money?** Using a public Kaggle dataset of London rental listings, I set out to
-quantify the bedroom–price relationship, map the geographic premium, and find the
-best *value* areas — while being honest about the dataset's sampling bias.
+I kept hearing that London rent is "just expensive everywhere," and I didn't quite
+believe it. So I went looking: **what actually drives rent here, and where do you get
+the most space for your money?** Using a public Kaggle dataset of London rental
+listings, I set out to quantify the bedroom–price relationship, map the geographic
+premium, and find the best *value* areas — while staying honest about the dataset's
+sampling bias.
 
 ## At a glance
 

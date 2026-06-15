@@ -9,8 +9,9 @@ description: Data analysis projects by Hamza Farooq — SQL, Python, and data vi
 
 # Projects
 
-Selected data-analysis work. Each case study covers the question, the method, and
-the findings — with a link to the full source code on GitHub.
+The data projects I've genuinely enjoyed building — each one started with a question
+I actually wanted answered. Every write-up walks through the question, how I got to an
+answer, and what I found, with the full source code on GitHub.
 
 ## London Rental Market Analysis
 

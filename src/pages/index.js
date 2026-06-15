@@ -46,9 +46,10 @@ function HomepageHeader() {
             Data Analyst — <span className={styles.heroAccent}>SQL, Python &amp; Power BI</span>
           </p>
           <p className={styles.heroLede}>
-            I help teams make better decisions with data. I turn messy datasets into
-            clean analysis, clear visualizations, and dashboards — using SQL, Python
-            (pandas), and Power BI.
+            I'm a data analyst who genuinely likes the messy part — taking raw,
+            real-world data and turning it into answers people can actually use. Clean
+            analysis, clear charts, and dashboards, built with SQL, Python (pandas),
+            and Power BI.
           </p>
           <div className={styles.heroActions}>
             <Link className="button button--primary button--lg" to="/#work">
