@@ -87,19 +87,7 @@ const config = {
           sidebarPath: './sidebars.js',
           routeBasePath: 'projects',
         },
-        blog: {
-          blogTitle: 'Writing',
-          blogDescription: 'Notes and walkthroughs on data analysis.',
-          showReadingTime: true,
-          routeBasePath: 'writing',
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -124,8 +112,8 @@ const config = {
         {property: 'og:type', content: 'profile'},
       ],
       colorMode: {
-        defaultMode: 'light',
-        respectPrefersColorScheme: true,
+        defaultMode: 'dark',
+        respectPrefersColorScheme: false,
       },
       navbar: {
         title: personal.name,
@@ -133,7 +121,6 @@ const config = {
         items: [
           {to: '/#work', label: 'Projects', position: 'left'},
           {to: '/about', label: 'About', position: 'left'},
-          {to: '/writing', label: 'Writing', position: 'left'},
           {href: personal.github, label: 'GitHub', position: 'right'},
           {href: personal.linkedin, label: 'LinkedIn', position: 'right'},
         ],
@@ -146,7 +133,6 @@ const config = {
             items: [
               {label: 'Projects', to: '/#work'},
               {label: 'About', to: '/about'},
-              {label: 'Writing', to: '/writing'},
             ],
           },
           {
