@@ -1,41 +1,308 @@
 /**
- * Global styles. Infima variables are overridden here.
+ * Theme: "Liquid Glass Encyclopedia" — Roman / classical typography and palette,
+ * rendered with translucent frosted-glass (Apple Liquid Glass) surfaces.
  */
 
+/* ----------------------------------------------------------------------------
+   Palette + type
+---------------------------------------------------------------------------- */
 :root {
-  --ifm-color-primary: #1f9d72;
-  --ifm-color-primary-dark: #1c8d67;
-  --ifm-color-primary-darker: #1a8561;
-  --ifm-color-primary-darkest: #156e50;
-  --ifm-color-primary-light: #22ad7d;
-  --ifm-color-primary-lighter: #24b583;
-  --ifm-color-primary-lightest: #2cc792;
-  --ifm-code-font-size: 95%;
-  --ifm-font-family-base: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --ifm-heading-font-weight: 700;
-  --ifm-card-background-color: #ffffff;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  /* Roman / encyclopedia palette */
+  --rome-parchment: #f4ecd6;
+  --rome-parchment-2: #efe3c4;
+  --rome-marble: #faf6ec;
+  --rome-ink: #2c2114;
+  --rome-ink-soft: #5b4d39;
+  --rome-gold: #c2a14a;
+  --rome-gold-deep: #9a7b1e;
+  --rome-porphyry: #7a3b5e;   /* Tyrian-purple regalia */
+  --rome-oxblood: #7b2d26;
+
+  /* Liquid-glass tokens (light) */
+  --lg-bg: rgba(250, 246, 236, 0.55);
+  --lg-bg-strong: rgba(250, 246, 236, 0.72);
+  --lg-border: rgba(255, 255, 255, 0.65);
+  --lg-edge: rgba(154, 123, 30, 0.22);
+  --lg-highlight: rgba(255, 255, 255, 0.75);
+  --lg-shadow: 0 10px 34px rgba(60, 40, 16, 0.16), 0 2px 8px rgba(60, 40, 16, 0.08);
+
+  /* Infima overrides */
+  --ifm-color-primary: #7a3b5e;
+  --ifm-color-primary-dark: #6e3554;
+  --ifm-color-primary-darker: #67324f;
+  --ifm-color-primary-darkest: #552941;
+  --ifm-color-primary-light: #884468;
+  --ifm-color-primary-lighter: #8f4a6f;
+  --ifm-color-primary-lightest: #a05b80;
+
+  --ifm-background-color: var(--rome-parchment);
+  --ifm-font-color-base: var(--rome-ink);
+  --ifm-heading-color: var(--rome-ink);
+  --ifm-font-family-base: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --ifm-heading-font-family: 'Cinzel', 'EB Garamond', Georgia, serif;
+  --ifm-font-size-base: 18px;
+  --ifm-line-height-base: 1.72;
+  --ifm-heading-font-weight: 600;
+  --ifm-h1-font-size: 2.6rem;
+  --ifm-link-color: var(--rome-porphyry);
+  --ifm-card-background-color: var(--lg-bg);
+  --ifm-code-font-size: 92%;
+  --docusaurus-highlighted-code-line-bg: rgba(154, 123, 30, 0.14);
 }
 
 [data-theme='dark'] {
-  --ifm-color-primary: #2fd6a6;
-  --ifm-color-primary-dark: #25c298;
-  --ifm-color-primary-darker: #22b78f;
-  --ifm-color-primary-darkest: #1c9676;
-  --ifm-color-primary-light: #45dcb1;
-  --ifm-color-primary-lighter: #51deb7;
-  --ifm-color-primary-lightest: #76e6c8;
-  --ifm-background-color: #0f1419;
-  --ifm-background-surface-color: #161c24;
-  --ifm-card-background-color: #161c24;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  /* "Night library" — obsidian & marble */
+  --rome-parchment: #161210;
+  --rome-parchment-2: #1d1813;
+  --rome-marble: #f3e9d2;
+  --rome-ink: #ecdfc4;
+  --rome-ink-soft: #b6a684;
+  --rome-surface: #221c15;
+  --rome-gold: #d9b24a;
+  --rome-gold-deep: #caa23a;
+  --rome-porphyry: #c98aa6;
+  --rome-oxblood: #b9544a;
+
+  --lg-bg: rgba(40, 33, 24, 0.46);
+  --lg-bg-strong: rgba(40, 33, 24, 0.66);
+  --lg-border: rgba(217, 178, 74, 0.20);
+  --lg-edge: rgba(217, 178, 74, 0.16);
+  --lg-highlight: rgba(255, 255, 255, 0.10);
+  --lg-shadow: 0 14px 40px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.35);
+
+  --ifm-color-primary: #d9b24a;
+  --ifm-color-primary-dark: #d2a833;
+  --ifm-color-primary-darker: #c79f2f;
+  --ifm-color-primary-darkest: #a48327;
+  --ifm-color-primary-light: #dec064;
+  --ifm-color-primary-lighter: #e3c873;
+  --ifm-color-primary-lightest: #ecd79b;
+
+  --ifm-background-color: var(--rome-parchment);
+  --ifm-font-color-base: var(--rome-ink);
+  --ifm-heading-color: var(--rome-marble);
+  --ifm-link-color: var(--rome-gold);
+  --docusaurus-highlighted-code-line-bg: rgba(217, 178, 74, 0.12);
 }
 
-.navbar {
-  backdrop-filter: saturate(140%) blur(8px);
+/* ----------------------------------------------------------------------------
+   Marble / parchment backdrop (gives the glass something to refract)
+---------------------------------------------------------------------------- */
+html,
+body {
+  background-color: var(--rome-parchment);
 }
 
-/* Slightly tighter, more confident headings throughout */
+body {
+  background-image:
+    radial-gradient(1200px 620px at 86% -8%, rgba(194, 161, 74, 0.20), transparent 60%),
+    radial-gradient(960px 560px at -5% 8%, rgba(122, 59, 94, 0.18), transparent 58%),
+    radial-gradient(820px 560px at 50% 116%, rgba(123, 45, 38, 0.12), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-attachment: fixed, fixed, fixed, fixed;
+}
+
+[data-theme='dark'] body {
+  background-image:
+    radial-gradient(1200px 620px at 86% -8%, rgba(217, 178, 74, 0.14), transparent 60%),
+    radial-gradient(960px 560px at -5% 8%, rgba(122, 59, 94, 0.20), transparent 58%),
+    radial-gradient(820px 560px at 50% 116%, rgba(123, 45, 38, 0.14), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-attachment: fixed, fixed, fixed, fixed;
+}
+
+/* ----------------------------------------------------------------------------
+   Liquid Glass surface
+---------------------------------------------------------------------------- */
+.lg-glass {
+  position: relative;
+  background: var(--lg-bg);
+  backdrop-filter: blur(18px) saturate(165%);
+  -webkit-backdrop-filter: blur(18px) saturate(165%);
+  border: 1px solid var(--lg-border);
+  border-radius: 26px;
+  box-shadow:
+    inset 0 1px 0 0 var(--lg-highlight),
+    inset 0 0 0 1px var(--lg-edge),
+    var(--lg-shadow);
+  overflow: hidden;
+}
+
+/* specular sheen sweeping across the glass */
+.lg-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 42%);
+  pointer-events: none;
+}
+
+.lg-interactive {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.lg-interactive:hover {
+  transform: translateY(-4px);
+  border-color: var(--rome-gold);
+  box-shadow:
+    inset 0 1px 0 0 var(--lg-highlight),
+    inset 0 0 0 1px var(--lg-edge),
+    0 20px 48px rgba(60, 40, 16, 0.22);
+}
+
+/* ----------------------------------------------------------------------------
+   Typographic detailing
+---------------------------------------------------------------------------- */
+h1, h2, h3, .navbar__title {
+  letter-spacing: 0.02em;
+}
+
+/* Inscriptional small-caps label */
+.roman-label {
+  font-family: var(--ifm-heading-font-family);
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--rome-gold-deep);
+}
+[data-theme='dark'] .roman-label {
+  color: var(--rome-gold);
+}
+
+/* Ornamental rule with a central lozenge */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--rome-gold-deep);
+  margin: 1.25rem 0;
+}
+.ornament::before,
+.ornament::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, var(--rome-gold), transparent);
+}
+.ornament span {
+  font-family: var(--ifm-heading-font-family);
+  letter-spacing: 0.3em;
+}
+
+/* Drop cap on the first paragraph of every entry (encyclopedia feel) */
+.markdown > p:first-of-type::first-letter {
+  font-family: 'Cinzel Decorative', var(--ifm-heading-font-family);
+  font-weight: 700;
+  font-size: 3.6em;
+  line-height: 0.78;
+  float: left;
+  padding: 0.06em 0.14em 0 0;
+  color: var(--rome-gold-deep);
+}
+[data-theme='dark'] .markdown > p:first-of-type::first-letter {
+  color: var(--rome-gold);
+}
+
 .markdown h1:first-child {
-  font-size: 2.4rem;
+  font-size: 2.7rem;
+}
+
+/* Tables read like reference plates */
+.markdown table {
+  border-collapse: collapse;
+}
+.markdown table thead {
+  font-family: var(--ifm-heading-font-family);
+  letter-spacing: 0.04em;
+}
+
+/* ----------------------------------------------------------------------------
+   Chrome: navbar + footer as floating glass
+---------------------------------------------------------------------------- */
+.navbar {
+  background: var(--lg-bg);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border-bottom: 1px solid var(--lg-border);
+  box-shadow: 0 4px 24px rgba(60, 40, 16, 0.08);
+}
+.navbar__title {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.navbar__link {
+  font-family: var(--ifm-heading-font-family);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.footer {
+  background: var(--rome-parchment-2);
+  border-top: 1px solid var(--lg-edge);
+  color: var(--rome-ink);
+}
+[data-theme='dark'] .footer {
+  background: #120e0b;
+}
+.footer__title {
+  font-family: var(--ifm-heading-font-family);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rome-gold-deep);
+}
+[data-theme='dark'] .footer__title {
+  color: var(--rome-gold);
+}
+.footer__link-item {
+  color: var(--rome-ink-soft);
+}
+
+/* ----------------------------------------------------------------------------
+   Buttons as glass
+---------------------------------------------------------------------------- */
+.button {
+  font-family: var(--ifm-heading-font-family);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  border-radius: 999px;
+  border: 1px solid var(--lg-border);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.button:hover {
+  transform: translateY(-2px);
+}
+.button--primary {
+  background: linear-gradient(160deg, var(--rome-porphyry), #5e2c48);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fbeede;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), var(--lg-shadow);
+}
+[data-theme='dark'] .button--primary {
+  background: linear-gradient(160deg, var(--rome-gold), var(--rome-gold-deep));
+  color: #1a140c;
+}
+.button--secondary {
+  background: var(--lg-bg-strong);
+  color: var(--rome-ink);
+  box-shadow: inset 0 1px 0 var(--lg-highlight), var(--lg-shadow);
+}
+
+/* Sidebar + cards inherit the warm reference-book tone */
+.menu {
+  font-family: var(--ifm-font-family-base);
+}
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--lg-edge);
+}
+
+/* Pagination / admonitions soften onto parchment */
+article {
+  --ifm-color-emphasis-100: rgba(154, 123, 30, 0.08);
+  --ifm-color-emphasis-200: rgba(154, 123, 30, 0.16);
 }

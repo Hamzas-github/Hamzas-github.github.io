@@ -12,31 +12,46 @@ function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   const {personal} = siteConfig.customFields;
   return (
-    <header className={clsx(styles.heroBanner)}>
+    <header className={styles.heroBanner}>
       <div className="container">
-        <p className={styles.heroEyebrow}>{personal.role}</p>
-        <Heading as="h1" className={styles.heroTitle}>
-          Hi, I&apos;m {personal.name.split(' ').slice(-1)[0]}. I turn messy data
-          into <span className={styles.heroAccent}>decisions</span>.
-        </Heading>
-        <p className={styles.heroSubtitle}>
-          I build end-to-end analytics — from raw CSVs to cleaned databases, SQL
-          analysis, and dashboards that non-technical stakeholders actually use.
-        </p>
-        <div className={styles.heroButtons}>
-          <Link className="button button--primary button--lg" to="/projects/overview">
-            View my work →
-          </Link>
-          <Link className="button button--secondary button--lg" to="/about">
-            About me
-          </Link>
-        </div>
-        <div className={styles.heroLinks}>
-          <a href={personal.github} target="_blank" rel="noreferrer">GitHub</a>
-          <span>·</span>
-          <a href={personal.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-          <span>·</span>
-          <a href={`mailto:${personal.email}`}>Email</a>
+        <div className={clsx('lg-glass', styles.heroPlate)}>
+          <p className={clsx('roman-label', styles.heroMotto)}>
+            Ex datis, consilium · From data, counsel
+          </p>
+
+          <Heading as="h1" className={styles.heroName}>
+            {personal.name}
+          </Heading>
+
+          <p className={styles.heroDefinition}>
+            <span className={styles.heroPron}>/dā-tə ˈa-nə-list/</span>
+            &nbsp;·&nbsp;<strong>data analyst</strong>, <em>n.</em>
+          </p>
+
+          <div className="ornament"><span>※</span></div>
+
+          <p className={styles.heroGloss}>
+            One who turns raw, messy data into clean and defensible{' '}
+            <span className={styles.heroAccent}>decisions</span> — through careful
+            cleaning, SQL, and clear visual storytelling.
+          </p>
+
+          <div className={styles.heroButtons}>
+            <Link className="button button--primary button--lg" to="/projects/overview">
+              View the plates
+            </Link>
+            <Link className="button button--secondary button--lg" to="/about">
+              The author
+            </Link>
+          </div>
+
+          <div className={styles.heroLinks}>
+            <a href={personal.github} target="_blank" rel="noreferrer">GitHub</a>
+            <span>·</span>
+            <a href={personal.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            <span>·</span>
+            <a href={`mailto:${personal.email}`}>Email</a>
+          </div>
         </div>
       </div>
     </header>

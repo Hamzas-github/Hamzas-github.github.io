@@ -48,6 +48,22 @@ const config = {
     locales: ['en'],
   },
 
+  // Classical type system: Cinzel (inscriptional Roman capitals) for display,
+  // EB Garamond (a book serif) for body — the "encyclopedia" voice.
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
+    },
+    {
+      tagName: 'link',
+      attributes: {rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous'},
+    },
+  ],
+  stylesheets: [
+    'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap',
+  ],
+
   // Make personal details available in client components via siteConfig.customFields
   customFields: {
     personal,
@@ -91,7 +107,7 @@ const config = {
         {name: 'author', content: personal.name},
       ],
       colorMode: {
-        defaultMode: 'dark',
+        defaultMode: 'light',
         respectPrefersColorScheme: true,
       },
       navbar: {

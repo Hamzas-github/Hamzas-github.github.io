@@ -5,52 +5,68 @@
 .sectionHead {
   text-align: center;
   max-width: 60ch;
-  margin: 0 auto 2.5rem;
+  margin: 0 auto 2.75rem;
 }
 
 .sectionTitle {
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
+  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 0.5rem 0;
 }
 
 .sectionLead {
-  color: var(--ifm-color-emphasis-700);
-  font-size: 1.1rem;
+  color: var(--rome-ink-soft);
+  font-size: 1.15rem;
+  font-style: italic;
 }
 
 .cardCol {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.6rem;
 }
 
 .card {
   height: 100%;
-  padding: 1.75rem;
-  border-radius: 16px;
-  border: 1px solid var(--ifm-color-emphasis-200);
-  background: var(--ifm-card-background-color);
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  padding: 1.9rem;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  border-color: var(--ifm-color-primary);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.numeral {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  color: var(--rome-gold-deep);
+  border: 1px solid var(--lg-edge);
+  border-radius: 50%;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: grid;
+  place-items: center;
+}
+
+[data-theme='dark'] .numeral {
+  color: var(--rome-gold);
 }
 
 .cardIcon {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
+  font-size: 1.7rem;
 }
 
 .cardTitle {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
   margin-bottom: 0.5rem;
 }
 
 .cardDesc {
-  color: var(--ifm-color-emphasis-700);
+  color: var(--rome-ink-soft);
   margin-bottom: 1rem;
 }
 
@@ -61,10 +77,14 @@
 }
 
 .tag {
-  font-size: 0.8rem;
+  font-family: var(--ifm-heading-font-family);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   font-weight: 600;
-  padding: 0.25rem 0.7rem;
+  padding: 0.28rem 0.7rem;
   border-radius: 999px;
-  background: var(--ifm-color-emphasis-100);
-  color: var(--ifm-color-emphasis-800);
+  background: rgba(154, 123, 30, 0.12);
+  border: 1px solid var(--lg-edge);
+  color: var(--rome-ink-soft);
 }

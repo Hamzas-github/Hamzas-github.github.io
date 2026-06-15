@@ -1,73 +1,107 @@
 /**
- * Homepage hero + section styles.
+ * Homepage hero — an encyclopedia entry on a liquid-glass plate.
  */
 
 .heroBanner {
   position: relative;
-  padding: 6rem 0 5rem;
+  padding: 5rem 0 4rem;
   overflow: hidden;
-  background:
-    radial-gradient(1100px 480px at 80% -10%, rgba(37, 194, 160, 0.18), transparent 60%),
-    radial-gradient(900px 420px at 0% 10%, rgba(72, 119, 255, 0.16), transparent 55%);
 }
 
-.heroEyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--ifm-color-primary);
-  margin-bottom: 0.75rem;
+.heroPlate {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 3.25rem clamp(1.5rem, 5vw, 3.5rem);
+  text-align: center;
 }
 
-.heroTitle {
-  font-size: clamp(2.2rem, 5vw, 3.6rem);
-  line-height: 1.08;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  max-width: 18ch;
+.heroMotto {
   margin-bottom: 1.25rem;
 }
 
-.heroAccent {
-  background: linear-gradient(90deg, var(--ifm-color-primary), #4877ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.heroName {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  margin-bottom: 0.75rem;
+  color: var(--rome-ink);
 }
 
-.heroSubtitle {
-  font-size: clamp(1.05rem, 2vw, 1.3rem);
-  color: var(--ifm-color-emphasis-700);
+[data-theme='dark'] .heroName {
+  color: var(--rome-marble);
+}
+
+.heroDefinition {
+  font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+  color: var(--rome-ink-soft);
+  margin-bottom: 0.25rem;
+}
+
+.heroPron {
+  font-style: italic;
+  color: var(--rome-gold-deep);
+}
+
+[data-theme='dark'] .heroPron {
+  color: var(--rome-gold);
+}
+
+.heroGloss {
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  line-height: 1.6;
   max-width: 60ch;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem;
+  color: var(--rome-ink);
+}
+
+.heroAccent {
+  font-style: italic;
+  color: var(--rome-porphyry);
+  font-weight: 600;
+}
+
+[data-theme='dark'] .heroAccent {
+  color: var(--rome-gold);
 }
 
 .heroButtons {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  justify-content: center;
   margin-bottom: 1.75rem;
 }
 
 .heroLinks {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
-  font-weight: 600;
-  color: var(--ifm-color-emphasis-600);
+  font-family: var(--ifm-heading-font-family);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  color: var(--rome-ink-soft);
 }
 
 .heroLinks a {
-  color: var(--ifm-color-emphasis-800);
+  color: var(--rome-ink);
 }
 
 .heroLinks a:hover {
-  color: var(--ifm-color-primary);
+  color: var(--rome-porphyry);
+}
+
+[data-theme='dark'] .heroLinks a:hover {
+  color: var(--rome-gold);
 }
 
 @media screen and (max-width: 768px) {
   .heroBanner {
-    padding: 4rem 0 3rem;
+    padding: 3rem 0 2rem;
+  }
+  .heroPlate {
+    padding: 2.25rem 1.4rem;
   }
 }
