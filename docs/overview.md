@@ -2,34 +2,28 @@
 id: overview
 title: Projects
 sidebar_label: Overview
+sidebar_position: 1
 slug: /overview
-description: A selection of data analysis projects by Muhammad Hamza Farooq.
+description: Data analysis projects by Hamza Farooq — SQL, Python, and data visualization case studies.
 ---
 
 # Projects
 
-A selection of work that shows how I take a dataset from raw and messy to a clear,
-defensible decision. Each case study covers the **question**, the **method**, and
-the **findings** — plus a link to the full source code on GitHub.
+Selected data-analysis work. Each case study covers the question, the method, and
+the findings — with a link to the full source code on GitHub.
 
-## Featured
+## London Rental Market Analysis
 
-### 🏙️ London Rental Market Analysis
+An end-to-end analysis of 2,838 London rental listings: data cleaning, a SQLite
+database, eight documented SQL queries, publication-quality charts, and a Power BI
+dashboard — built to be reproducible end-to-end.
 
-An end-to-end analytics project on **2,838** London rental listings: raw Kaggle CSV
-→ cleaned SQLite database → 8 documented SQL queries → publication-quality Python
-charts → Power BI dashboard. Built to be **reproducible end-to-end**.
+**SQL · Python · pandas · SQLite · Power BI**
 
-- **Stack:** Python · pandas · SQL · SQLite · Matplotlib/Seaborn · Power BI
-- **Highlights:** defensive data cleaning, geographic feature engineering from
-  free-text addresses, value analysis by rent-per-bedroom.
-
-➡️ **[Read the case study](./london-rental-analysis.md)** ·
+[Read the case study](./london-rental-analysis.md) ·
 [Code on GitHub](https://github.com/Hamzas-github/london-rental-analysis)
 
 ---
 
-## More coming
-
-I'm actively adding projects. Want to see something specific, or talk about a role?
-[Get in touch](/about).
+More projects coming. Want to see something specific, or talk about a role?
+[Get in touch.](/about)

@@ -1,90 +1,59 @@
 .section {
   padding: 4.5rem 0;
+  border-bottom: 1px solid var(--border);
 }
 
-.sectionHead {
-  text-align: center;
-  max-width: 60ch;
-  margin: 0 auto 2.75rem;
+.inner {
+  max-width: 1000px;
 }
 
-.sectionTitle {
-  font-size: clamp(1.9rem, 3.2vw, 2.6rem);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  margin: 0.5rem 0;
+.head {
+  margin-bottom: 2.5rem;
 }
 
-.sectionLead {
-  color: var(--rome-ink-soft);
-  font-size: 1.15rem;
-  font-style: italic;
-}
-
-.cardCol {
-  margin-bottom: 1.6rem;
-}
-
-.card {
-  height: 100%;
-  padding: 1.9rem;
-}
-
-.cardHead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.85rem;
-}
-
-.numeral {
-  font-family: var(--ifm-heading-font-family);
-  font-weight: 700;
-  font-size: 1.4rem;
-  letter-spacing: 0.08em;
-  color: var(--rome-gold-deep);
-  border: 1px solid var(--lg-edge);
-  border-radius: 50%;
-  width: 2.6rem;
-  height: 2.6rem;
+.grid {
   display: grid;
-  place-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem 3rem;
 }
 
-[data-theme='dark'] .numeral {
-  color: var(--rome-gold);
+.skill {
+  border-top: 1px solid var(--border);
+  padding-top: 1.4rem;
 }
 
-.cardIcon {
-  font-size: 1.7rem;
+.skillTitle {
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
 }
 
-.cardTitle {
-  font-size: 1.3rem;
-  letter-spacing: 0.03em;
-  margin-bottom: 0.5rem;
-}
-
-.cardDesc {
-  color: var(--rome-ink-soft);
+.skillDesc {
+  color: var(--text-muted);
+  font-size: 1rem;
   margin-bottom: 1rem;
 }
 
 .tagRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.45rem;
 }
 
 .tag {
-  font-family: var(--ifm-heading-font-family);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 600;
-  padding: 0.28rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(154, 123, 30, 0.12);
-  border: 1px solid var(--lg-edge);
-  color: var(--rome-ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+@media screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .skill {
+    padding: 1.4rem 0;
+  }
 }

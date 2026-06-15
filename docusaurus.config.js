@@ -8,34 +8,44 @@ import {themes as prismThemes} from 'prism-react-renderer';
 // (navbar, footer, homepage, meta tags) updates.
 // ---------------------------------------------------------------------------
 const personal = {
-  name: 'Muhammad Hamza Farooq',
-  shortName: 'Hamza Farooq',
+  name: 'Hamza Farooq',
+  fullName: 'Muhammad Hamza Farooq',
   role: 'Data Analyst',
+  availability: 'Open to data analyst roles',
+  location: 'United Kingdom',
   github: 'https://github.com/Hamzas-github',
   linkedin: 'https://www.linkedin.com/in/hamza-farooq-tech-savvy/',
   email: 'hamzaf14@gmail.com',
+  // Profile photo: drop an image at static/img/<file> and set the path here
+  // (e.g. 'img/hamza.jpg'). While null, a clean monogram placeholder is shown.
+  photo: null,
 };
+
+const description =
+  'Hamza Farooq is a Data Analyst specializing in SQL, Python, and data ' +
+  'visualization — turning raw data into clear, decision-ready insights, ' +
+  'reports, and dashboards.';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: `${personal.shortName} · ${personal.role}`,
-  tagline: 'Turning raw data into decisions — SQL, Python, and clear visual storytelling.',
+  title: `${personal.name} — Data Analyst`,
+  tagline: 'SQL · Python · Power BI · Data visualization',
   favicon: 'img/favicon.ico',
 
   future: {
     v4: true,
   },
 
-  // Production URL for a GitHub user page (https://<user>.github.io)
   url: 'https://Hamzas-github.github.io',
   baseUrl: '/',
 
-  organizationName: 'Hamzas-github', // GitHub user/org
-  projectName: 'Hamzas-github.github.io', // repo name
+  organizationName: 'Hamzas-github',
+  projectName: 'Hamzas-github.github.io',
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
 
   onBrokenLinks: 'warn',
+  onBrokenAnchors: 'ignore',
 
   markdown: {
     hooks: {
@@ -48,8 +58,8 @@ const config = {
     locales: ['en'],
   },
 
-  // Classical type system: Cinzel (inscriptional Roman capitals) for display,
-  // EB Garamond (a book serif) for body — the "encyclopedia" voice.
+  // Type system: Bricolage Grotesque (editorial display), Inter (body),
+  // JetBrains Mono (technical labels / metrics).
   headTags: [
     {
       tagName: 'link',
@@ -61,10 +71,9 @@ const config = {
     },
   ],
   stylesheets: [
-    'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap',
+    'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap',
   ],
 
-  // Make personal details available in client components via siteConfig.customFields
   customFields: {
     personal,
   },
@@ -103,40 +112,41 @@ const config = {
     ({
       image: 'img/social-card.jpg',
       metadata: [
-        {name: 'keywords', content: 'data analyst, data analysis, SQL, Python, pandas, Power BI, data visualization, portfolio'},
-        {name: 'author', content: personal.name},
+        {name: 'description', content: description},
+        {
+          name: 'keywords',
+          content:
+            'Hamza Farooq, data analyst, data analysis, data scientist, SQL, ' +
+            'Python, pandas, Power BI, data visualization, business intelligence, ' +
+            'analytics, dashboards, portfolio',
+        },
+        {name: 'author', content: personal.fullName},
+        {property: 'og:type', content: 'profile'},
       ],
       colorMode: {
         defaultMode: 'light',
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: personal.shortName,
+        title: personal.name,
+        hideOnScroll: true,
         items: [
-          {to: '/projects/overview', label: 'Projects', position: 'left'},
-          {to: '/writing', label: 'Writing', position: 'left'},
+          {to: '/#work', label: 'Projects', position: 'left'},
           {to: '/about', label: 'About', position: 'left'},
-          {
-            href: personal.github,
-            label: 'GitHub',
-            position: 'right',
-          },
-          {
-            href: personal.linkedin,
-            label: 'LinkedIn',
-            position: 'right',
-          },
+          {to: '/writing', label: 'Writing', position: 'left'},
+          {href: personal.github, label: 'GitHub', position: 'right'},
+          {href: personal.linkedin, label: 'LinkedIn', position: 'right'},
         ],
       },
       footer: {
-        style: 'dark',
+        style: 'light',
         links: [
           {
             title: 'Explore',
             items: [
-              {label: 'Projects', to: '/projects/overview'},
-              {label: 'Writing', to: '/writing'},
+              {label: 'Projects', to: '/#work'},
               {label: 'About', to: '/about'},
+              {label: 'Writing', to: '/writing'},
             ],
           },
           {
@@ -148,11 +158,11 @@ const config = {
             ],
           },
         ],
-        copyright: `© ${new Date().getFullYear()} ${personal.name}. Built with Docusaurus.`,
+        copyright: `© ${new Date().getFullYear()} ${personal.fullName}`,
       },
       prism: {
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        theme: prismThemes.oneLight,
+        darkTheme: prismThemes.oneDark,
         additionalLanguages: ['sql', 'python', 'bash'],
       },
     }),
