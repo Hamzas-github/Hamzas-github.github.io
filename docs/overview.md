@@ -13,6 +13,19 @@ The data projects I've genuinely enjoyed building — each one started with a qu
 I actually wanted answered. Every write-up walks through the question, how I got to an
 answer, and what I found, with the full source code on GitHub.
 
+## Fintech Fraud & Risk Monitoring
+
+An end-to-end fraud analytics project built for London fintech data roles: synthetic
+card transactions, Python validation, SQLite, SQL risk queries, investigation queues,
+and dashboard-ready fraud KPIs.
+
+**Python · pandas · SQL · SQLite · risk analytics · Power BI-ready outputs**
+
+[Read the case study](./fintech-fraud-risk-monitoring.md) ·
+[Code on GitHub](https://github.com/Hamzas-github/Hamzas-github.github.io/tree/main/fintech-fraud-risk-monitoring)
+
+---
+
 ## London Rental Market Analysis
 
 An end-to-end analysis of 2,838 London rental listings: data cleaning, a SQLite

@@ -18,6 +18,16 @@
  */
 const projects = [
   {
+    title: 'Fintech Fraud & Risk Monitoring',
+    year: '2026',
+    summary:
+      'A London-fintech-style fraud analytics project: synthetic card transactions, Python validation, SQLite warehouse, SQL risk queries, investigation queues, and dashboard-ready fraud KPIs.',
+    stack: ['Python', 'pandas', 'SQL', 'SQLite', 'Risk Analytics', 'Power BI-ready'],
+    to: '/projects/fintech-fraud-risk-monitoring',
+    repo: 'https://github.com/Hamzas-github/Hamzas-github.github.io/tree/main/fintech-fraud-risk-monitoring',
+    image: 'img/projects/fintech-fraud/fraud_rate_by_category.png',
+  },
+  {
     title: 'E-commerce Sales & Customer Analytics',
     year: '2026',
     summary:

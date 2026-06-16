@@ -1,0 +1,7 @@
+data/raw/
+data/processed/
+database/
+outputs/
+__pycache__/
+.venv/
+
