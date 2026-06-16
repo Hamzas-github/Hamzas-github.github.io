@@ -18,6 +18,16 @@
  */
 const projects = [
   {
+    title: 'E-commerce Sales & Customer Analytics',
+    year: '2026',
+    summary:
+      'Two years of real online-retail transactions (~1M sales lines) turned into a commercial story — revenue seasonality, RFM customer segmentation, cohort retention, and a Power BI dashboard. Built around the questions a retail business actually asks.',
+    stack: ['Python', 'pandas', 'SQL', 'SQLite', 'Power BI', 'RFM'],
+    to: '/projects/ecommerce-sales-analysis',
+    repo: 'https://github.com/Hamzas-github/ecommerce-sales-analysis',
+    image: 'img/projects/ecommerce/01_monthly_revenue.png',
+  },
+  {
     title: 'London Rental Market Analysis',
     year: '2025',
     summary:
