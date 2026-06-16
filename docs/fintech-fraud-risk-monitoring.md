@@ -11,7 +11,7 @@ keywords: [fintech, fraud analytics, risk analytics, SQL, Python, pandas, SQLite
 > **End-to-end risk analytics:** synthetic card transactions -> Python validation ->
 > SQLite warehouse -> SQL risk queries -> dashboard-ready outputs and charts.
 
-[![Code on GitHub](https://img.shields.io/badge/Code-GitHub-181717?logo=github)](https://github.com/Hamzas-github/Hamzas-github.github.io/tree/main/fintech-fraud-risk-monitoring)
+[![Code on GitHub](https://img.shields.io/badge/Code-GitHub-181717?logo=github)](https://github.com/Hamzas-github/fintech-fraud-risk-monitoring)
 &nbsp;
 ![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
 ![pandas](https://img.shields.io/badge/pandas-2.x-150458?logo=pandas&logoColor=white)
@@ -153,4 +153,4 @@ roles asking for:
 
 ---
 
-**[Full project code and build instructions on GitHub ->](https://github.com/Hamzas-github/Hamzas-github.github.io/tree/main/fintech-fraud-risk-monitoring)**
+**[Full project code and build instructions on GitHub ->](https://github.com/Hamzas-github/fintech-fraud-risk-monitoring)**

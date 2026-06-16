@@ -22,7 +22,7 @@ and dashboard-ready fraud KPIs.
 **Python · pandas · SQL · SQLite · risk analytics · Power BI-ready outputs**
 
 [Read the case study](./fintech-fraud-risk-monitoring.md) ·
-[Code on GitHub](https://github.com/Hamzas-github/Hamzas-github.github.io/tree/main/fintech-fraud-risk-monitoring)
+[Code on GitHub](https://github.com/Hamzas-github/fintech-fraud-risk-monitoring)
 
 ---
 
