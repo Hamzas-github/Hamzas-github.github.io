@@ -7,7 +7,7 @@
    Tokens
 ---------------------------------------------------------------------------- */
 :root {
-  /* Accent — muted terracotta (single source; tweak here) */
+  /* Accent, muted terracotta (single source; tweak here) */
   --accent: #be6a45;
   --accent-hover: #a8593a;
   --accent-soft: rgba(190, 106, 69, 0.10);
@@ -165,7 +165,7 @@ h1 {
 }
 
 /* ----------------------------------------------------------------------------
-   Buttons — quiet, precise
+   Buttons, quiet, precise
 ---------------------------------------------------------------------------- */
 .button {
   font-family: var(--font-body);

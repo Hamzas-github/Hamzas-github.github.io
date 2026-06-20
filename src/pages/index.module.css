@@ -1,5 +1,5 @@
 /**
- * Homepage — calm, generous whitespace, content-column layout.
+ * Homepage, calm, generous whitespace, content-column layout.
  */
 
 .hero {
@@ -85,7 +85,7 @@
   border-bottom-color: var(--accent-line);
 }
 
-/* Photo slot — square with soft corners, ready for a real image later */
+/* Photo slot, square with soft corners, ready for a real image later */
 .avatar {
   width: 200px;
   height: 240px;
