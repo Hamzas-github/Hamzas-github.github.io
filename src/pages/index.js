@@ -34,6 +34,11 @@ function HomepageHeader() {
  const {personal} = siteConfig.customFields;
  return (
  <header className={styles.hero}>
+ <div className={styles.blobs} aria-hidden="true">
+ <span />
+ <span />
+ <span />
+ </div>
  <div className={clsx('container', styles.heroInner)}>
  <div className={styles.heroText}>
  <p className={clsx('mono-label', styles.heroEyebrow)}>
@@ -52,10 +57,10 @@ function HomepageHeader() {
  and Power BI.
  </p>
  <div className={styles.heroActions}>
- <Link className="button button--primary button--lg" to="/#work">
+ <Link className="button button--lg liquid-glass liquid-glass--accent" to="/#work">
  View projects
  </Link>
- <Link className="button button--secondary button--lg" to="/about">
+ <Link className="button button--lg liquid-glass" to="/about">
  About me
  </Link>
  </div>

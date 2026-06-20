@@ -208,6 +208,91 @@ h1 {
 }
 
 /* ----------------------------------------------------------------------------
+   Liquid glass (archisvaze/liquid-glass technique: SVG displacement + blur)
+   Falls back to a plain frosted blur on Safari/Firefox (they ignore url() on
+   backdrop-filter), so it degrades gracefully.
+---------------------------------------------------------------------------- */
+.liquid-glass {
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.10);
+  color: var(--text);
+  /* Frosted-blur fallback. Root.js replaces this with the per-element
+     displacement filter in browsers that support url() on backdrop-filter. */
+  backdrop-filter: blur(3px) saturate(150%) brightness(1.05);
+  -webkit-backdrop-filter: blur(3px) saturate(150%) brightness(1.05);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.55),
+    inset 0 -2px 6px rgba(255, 255, 255, 0.18),
+    0 6px 20px rgba(0, 0, 0, 0.18);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+  /* Scale from the centre (text stays centred) + symmetric margin so the
+     sibling still gets pushed, without the box drifting off-axis. */
+  transform-origin: center;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    margin 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease,
+    background 0.3s ease,
+    color 0.2s ease;
+}
+
+.liquid-glass:hover {
+  color: var(--text);
+  transform: scale(1.12);
+  margin-left: 0.6rem;
+  margin-right: 0.6rem;
+  background: rgba(190, 106, 69, 0.20);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.65),
+    0 0 0 1px var(--accent-line),
+    0 8px 30px rgba(190, 106, 69, 0.40),
+    0 0 36px rgba(190, 106, 69, 0.30);
+}
+
+/* Accent-tinted variant for the primary call to action */
+.liquid-glass--accent {
+  background: rgba(190, 106, 69, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+[data-theme='dark'] .liquid-glass {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Magnetic orange-dot cursor (desktop / fine pointers only). Root.js drives the
+   position; the size/shape morph is eased here so it "spans" onto a target. */
+@media (pointer: fine) {
+  html { cursor: none; }
+  a, button, [role='button'], summary, input, textarea, select { cursor: none; }
+
+  #magic-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    pointer-events: none;
+    will-change: transform, width, height;
+    transition:
+      width 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+      height 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+      border-radius 0.28s ease,
+      background 0.28s ease,
+      opacity 0.2s ease;
+  }
+
+  #magic-cursor.is-spanning {
+    background: rgba(190, 106, 69, 0.16);
+    box-shadow: inset 0 0 0 1px var(--accent-line);
+  }
+}
+
+/* ----------------------------------------------------------------------------
    Content surfaces (docs / blog) kept airy
 ---------------------------------------------------------------------------- */
 .markdown h1:first-child {

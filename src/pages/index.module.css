@@ -3,8 +3,66 @@
  */
 
 .hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 5.5rem 0 4rem;
   border-bottom: 1px solid var(--border);
+}
+
+/* Orange blobs drifting on independent paths behind the hero, so the
+   liquid-glass buttons refract a moving background (the effect only reads when
+   what's behind the glass actually moves). */
+.blobs {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.blobs span {
+  position: absolute;
+  width: 42vmax;
+  height: 42vmax;
+  border-radius: 50%;
+  filter: blur(40px);
+  will-change: transform;
+}
+
+.blobs span:nth-child(1) {
+  top: -12%; left: -8%;
+  background: radial-gradient(circle, rgba(190, 106, 69, 0.60), transparent 65%);
+  animation: blob1 16s ease-in-out infinite alternate;
+}
+.blobs span:nth-child(2) {
+  top: 30%; left: 55%;
+  background: radial-gradient(circle, rgba(204, 123, 87, 0.55), transparent 65%);
+  animation: blob2 23s ease-in-out infinite alternate;
+}
+.blobs span:nth-child(3) {
+  top: 45%; left: 5%;
+  background: radial-gradient(circle, rgba(216, 140, 100, 0.50), transparent 65%);
+  animation: blob3 19s ease-in-out infinite alternate;
+}
+
+@keyframes blob1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(55%, 30%) scale(1.25); }
+  100% { transform: translate(20%, 60%) scale(0.95); }
+}
+@keyframes blob2 {
+  0%   { transform: translate(0, 0) scale(1.1); }
+  50%  { transform: translate(-45%, 25%) scale(0.85); }
+  100% { transform: translate(-25%, -35%) scale(1.2); }
+}
+@keyframes blob3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(40%, -30%) scale(1.2); }
+  100% { transform: translate(70%, 20%) scale(0.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blobs span { animation: none; }
 }
 
 .heroInner {
