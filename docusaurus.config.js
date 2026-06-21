@@ -18,7 +18,7 @@ const personal = {
   email: 'hamzaf14@gmail.com',
   // Profile photo: drop an image at static/img/<file> and set the path here
   // (e.g. 'img/hamza.jpg'). While null, a clean monogram placeholder is shown.
-  photo: null,
+  photo: 'img/hamza.jpg',
 };
 
 const description =
