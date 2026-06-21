@@ -17,7 +17,7 @@
   inset: 0;
   z-index: -1;
   overflow: hidden;
-  filter: blur(44px);
+  filter: blur(22px);
   opacity: 0.55;
 }
 
