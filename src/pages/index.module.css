@@ -10,60 +10,49 @@
   border-bottom: 1px solid var(--border);
 }
 
-/* Orange blobs drifting on independent paths behind the hero, so the
-   liquid-glass buttons refract a moving background (the effect only reads when
-   what's behind the glass actually moves). */
-.blobs {
+/* Soft orange blobs drifting like a lava lamp. Positions are driven by JS
+   (HeroLava) so they flow and get gently repelled by the cursor. */
+.lava {
   position: absolute;
   inset: 0;
   z-index: -1;
   overflow: hidden;
+  filter: blur(44px);
+  opacity: 0.55;
 }
 
-.blobs span {
+/* Soft fluid glow pooled in the centre. */
+.lava::before {
+  content: '';
   position: absolute;
-  width: 42vmax;
-  height: 42vmax;
+  left: 50%;
+  top: 50%;
+  width: 55vmin;
+  height: 55vmin;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(190, 106, 69, 0.55), transparent 62%);
+  animation: lavaGlow 7s ease-in-out infinite alternate;
+}
+
+@keyframes lavaGlow {
+  from { opacity: 0.6; transform: translate(-50%, -50%) scale(0.92); }
+  to   { opacity: 1;   transform: translate(-50%, -50%) scale(1.12); }
+}
+
+.lava i {
+  position: absolute;
+  top: 0;
+  left: 0;
   border-radius: 50%;
-  filter: blur(40px);
+  background: radial-gradient(circle, var(--accent), transparent 70%);
   will-change: transform;
 }
 
-.blobs span:nth-child(1) {
-  top: -12%; left: -8%;
-  background: radial-gradient(circle, rgba(190, 106, 69, 0.60), transparent 65%);
-  animation: blob1 16s ease-in-out infinite alternate;
-}
-.blobs span:nth-child(2) {
-  top: 30%; left: 55%;
-  background: radial-gradient(circle, rgba(204, 123, 87, 0.55), transparent 65%);
-  animation: blob2 23s ease-in-out infinite alternate;
-}
-.blobs span:nth-child(3) {
-  top: 45%; left: 5%;
-  background: radial-gradient(circle, rgba(216, 140, 100, 0.50), transparent 65%);
-  animation: blob3 19s ease-in-out infinite alternate;
-}
-
-@keyframes blob1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(55%, 30%) scale(1.25); }
-  100% { transform: translate(20%, 60%) scale(0.95); }
-}
-@keyframes blob2 {
-  0%   { transform: translate(0, 0) scale(1.1); }
-  50%  { transform: translate(-45%, 25%) scale(0.85); }
-  100% { transform: translate(-25%, -35%) scale(1.2); }
-}
-@keyframes blob3 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(40%, -30%) scale(1.2); }
-  100% { transform: translate(70%, 20%) scale(0.9); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .blobs span { animation: none; }
-}
+.lava i:nth-child(1) { width: 30vmin; height: 30vmin; }
+.lava i:nth-child(2) { width: 22vmin; height: 22vmin; }
+.lava i:nth-child(3) { width: 36vmin; height: 36vmin; }
+.lava i:nth-child(4) { width: 18vmin; height: 18vmin; }
+.lava i:nth-child(5) { width: 26vmin; height: 26vmin; }
 
 .heroInner {
   display: grid;

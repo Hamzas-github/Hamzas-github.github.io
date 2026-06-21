@@ -113,20 +113,39 @@ export default function Root({children}) {
     return () => ro.disconnect();
   }, []);
 
-  // Magnetic orange-dot cursor: follows the mouse, and gently spans onto the
-  // nearest clickable element when the pointer gets close to it.
+  // Magnetic orange-dot cursor. Over a link it eases into an orange underline
+  // (and nudges the element bigger); over an image it leaves a small dot and
+  // gives the image a glow + slight grow.
   useEffect(() => {
     if (!window.matchMedia('(pointer: fine)').matches) return;
     const SEL = 'a, button, [role="button"], summary, input, textarea, select';
-    const SNAP = 44; // px from an element before the cursor spans to it
+    const SNAP = 44;
     const dot = document.createElement('div');
     dot.id = 'magic-cursor';
     document.body.appendChild(dot);
 
-    let mx = innerWidth / 2, my = innerHeight / 2, cx = mx, cy = my, target = null, raf;
+    let mx = innerWidth / 2, my = innerHeight / 2, cx = mx, cy = my, raf;
+    let cur = null, curType = null, visible = true, op = 1;
+
+    const imageLike = (el) => {
+      for (let n = el, i = 0; n instanceof Element && n !== document.body && i < 3; n = n.parentElement, i++) {
+        if (n.tagName === 'IMG') return n;
+        if (getComputedStyle(n).backgroundImage.includes('url(')) return n;
+      }
+      return null;
+    };
+    const setTarget = (el, type) => {
+      if (cur === el && curType === type) return;
+      if (cur) cur.classList.remove('mc-link', 'mc-img');
+      cur = el; curType = type;
+      if (!el) return;
+      el.classList.add(type === 'image' ? 'mc-img' : 'mc-link');
+    };
 
     const onMove = (e) => {
-      mx = e.clientX; my = e.clientY;
+      mx = e.clientX; my = e.clientY; visible = true;
+      const img = imageLike(e.target);
+      if (img) { setTarget(img, 'image'); return; }
       let best = null, bestD = Infinity;
       for (const el of document.querySelectorAll(SEL)) {
         const r = el.getBoundingClientRect();
@@ -136,27 +155,24 @@ export default function Root({children}) {
         const d = Math.hypot(dx, dy);
         if (d < bestD) { bestD = d; best = el; }
       }
-      target = bestD <= SNAP ? best : null;
+      setTarget(bestD <= SNAP ? best : null, 'link');
     };
-    const onLeave = () => { dot.style.opacity = '0'; };
-    const onEnter = () => { dot.style.opacity = '1'; };
+    const onLeave = () => { visible = false; };
+    const onEnter = () => { visible = true; };
 
     const frame = () => {
-      let tx, ty;
-      if (target) {
-        const r = target.getBoundingClientRect();
+      // Idle: a visible dot following the mouse. Near a target: the dot spans
+      // into the element's centre and fades out, handing off to the element's
+      // own hover effect (underline / glass glow / image glow).
+      let tx = mx, ty = my, opTarget = visible ? 1 : 0;
+      if (cur) {
+        const r = cur.getBoundingClientRect();
         tx = r.left + r.width / 2; ty = r.top + r.height / 2;
-        dot.style.width = `${r.width}px`;
-        dot.style.height = `${r.height}px`;
-        dot.style.borderRadius = getComputedStyle(target).borderRadius;
-        dot.classList.add('is-spanning');
-      } else {
-        tx = mx; ty = my;
-        dot.style.width = '12px'; dot.style.height = '12px';
-        dot.style.borderRadius = '50%';
-        dot.classList.remove('is-spanning');
+        opTarget = 0;
       }
-      cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2;
+      cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
+      op += (opTarget - op) * 0.16;
+      dot.style.opacity = op.toFixed(3);
       dot.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
       raf = requestAnimationFrame(frame);
     };
@@ -170,8 +186,27 @@ export default function Root({children}) {
       removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseleave', onLeave);
       document.removeEventListener('mouseenter', onEnter);
+      setTarget(null, null);
       dot.remove();
     };
+  }, []);
+
+  // Reveal each section/card as it scrolls into view. Classes are added in JS
+  // so no-JS visitors aren't left with hidden content.
+  useEffect(() => {
+    const targets = document.querySelectorAll('main section, main article');
+    if (!targets.length) return;
+    targets.forEach((t) => t.classList.add('reveal'));
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('reveal--in');
+          io.unobserve(e.target);
+        }
+      }
+    }, {threshold: 0.12, rootMargin: '0px 0px -8% 0px'});
+    targets.forEach((t) => io.observe(t));
+    return () => io.disconnect();
   }, []);
 
   return (
