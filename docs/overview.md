@@ -19,10 +19,23 @@ An end-to-end fraud analytics project built for London fintech data roles: synth
 card transactions, Python validation, SQLite, SQL risk queries, investigation queues,
 and dashboard-ready fraud KPIs.
 
-**Python · pandas · SQL · SQLite · risk analytics · Power BI-ready outputs**
+**Python, pandas, SQL, SQLite, risk analytics, Power BI-ready outputs**
 
-[Read the case study](./fintech-fraud-risk-monitoring.md) ·
+[Read the case study](./fintech-fraud-risk-monitoring.md) |
 [Code on GitHub](https://github.com/Hamzas-github/fintech-fraud-risk-monitoring)
+
+---
+
+## E-commerce Sales & Customer Analytics
+
+Two years of real online-retail transactions (around 1M sales lines) turned into a
+commercial story: revenue seasonality, RFM customer segmentation, cohort retention, and
+a Power BI dashboard. Built around the questions a retail business actually asks.
+
+**Python, pandas, SQL, SQLite, RFM, Power BI**
+
+[Read the case study](./ecommerce-sales-analysis.md) |
+[Code on GitHub](https://github.com/Hamzas-github/ecommerce-sales-analysis)
 
 ---
 
@@ -34,7 +47,7 @@ dashboard, built to be reproducible end-to-end.
 
 **SQL, Python, pandas, SQLite, Power BI**
 
-[Read the case study](./london-rental-analysis.md).
+[Read the case study](./london-rental-analysis.md) |
 [Code on GitHub](https://github.com/Hamzas-github/london-rental-analysis)
 
 ---
