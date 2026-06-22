@@ -1,43 +1,50 @@
-# Hamzas-github.github.io — Data Analyst portfolio
+# Hamza Farooq — Data Analyst Portfolio
 
-My portfolio site, built with [Docusaurus](https://docusaurus.io/) and deployed to
-**GitHub Pages** at <https://hamzas-github.github.io>.
+**🔗 Live site: [hamzas-github.github.io](https://hamzas-github.github.io)**
 
-## Edit your details in one place
+Source code for my personal portfolio — a static site that showcases my data
+analysis work, from fraud and risk analytics to e-commerce dashboards and a
+browser-based computer vision project. Each project links to a full case-study
+write-up and its own code repository.
 
-Open [`docusaurus.config.js`](docusaurus.config.js) and edit the `personal` object
-at the top — name, role, availability, location, GitHub, LinkedIn, email, and photo.
-The whole site updates from it.
+## Featured projects
 
-## Adding a project (it auto-publishes)
+| Project | Year | What it is | Tech |
+| --- | --- | --- | --- |
+| **Fintech Fraud & Risk Monitoring** | 2026 | Synthetic card-transaction data run through Python validation into a SQLite warehouse, with SQL risk queries, investigation queues, and fraud KPIs. | Python, pandas, SQL, SQLite, Power BI |
+| **E-commerce Sales & Customer Analytics** | 2026 | ~1M rows of online-retail transactions analysed for revenue seasonality, RFM customer segmentation, and cohort retention. | Python, pandas, SQL, SQLite, Power BI |
+| **Retail Sales Performance Dashboard** | 2026 | Interactive Power BI dashboard on the Superstore dataset ($2.30M sales) broken down by category, segment, region, and trend. | Power BI, DAX, Excel |
+| **London Rental Market Analysis** | 2025 | End-to-end analysis of 2,838 rental listings: cleaning, a SQLite database, documented SQL queries, and a Power BI dashboard. | Python, pandas, SQL, SQLite, Power BI |
+| **EyeSpeak** | 2026 | A webcam AAC board that lets someone communicate via gaze and blink detection, running entirely on-device in the browser. | WebGazer, MediaPipe, WebAssembly, Web Speech API, JavaScript |
 
-1. Open [`src/data/projects.js`](src/data/projects.js) and add an object to the **top**
-   of the array (newest first): title, year, summary, stack, optional `repo`, `to`,
-   and `image`.
-2. *(Optional, recommended)* Write a full write-up at `docs/<slug>.md`. It appears in
-   the Projects sidebar automatically, and you can link to it with `to: '/projects/<slug>'`.
-3. Commit and push to `main`.
+## What the site includes
 
-That's it — the GitHub Actions workflow rebuilds and redeploys the live site on every
-push, so a new project shows up on its own. No manual deploy step.
+- A homepage with an intro, a "what I do" skills overview, and a selected-work grid
+- A dedicated case-study page for each project
+- An About page and contact links (GitHub, LinkedIn, email)
+- SEO metadata, social cards, and light/dark theming out of the box
+- Continuous deployment — every push to `main` rebuilds and republishes the live site
 
-## Adding your photo later
+## Built with
 
-Drop an image in `static/img/` (e.g. `static/img/hamza.jpg`) and set
-`photo: 'img/hamza.jpg'` in the `personal` object. The homepage swaps the monogram
-placeholder for your photo automatically. Until then, the placeholder shows your initials.
+- **[Docusaurus 3](https://docusaurus.io/)** (React) — the static-site framework
+- **JavaScript & CSS** — site content, components, and styling
+- **GitHub Pages + GitHub Actions** — hosting and automated build/deploy
 
-## Local development
+## Running locally
 
 ```bash
 npm install
 npm start          # dev server with live reload at http://localhost:3000
 npm run build      # static output in ./build
-npm run serve      # preview the production build locally
+npm run serve      # preview the production build
 ```
 
-## Deployment
+## Repository layout
 
-Pushing to `main` triggers [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml),
-which builds the site and publishes it to GitHub Pages. One-time setup (already done):
-repo **Settings → Pages → Source → GitHub Actions**.
+```
+src/      site components, pages, and project data
+docs/      project case-study write-ups
+static/    images and other static assets
+.github/   GitHub Actions deploy workflow
+```
