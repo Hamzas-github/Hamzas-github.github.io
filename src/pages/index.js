@@ -41,6 +41,8 @@ out vec4 O;
 uniform float time;
 uniform vec2 resolution;
 uniform vec3 u_color;
+uniform vec3 u_bg;
+uniform float u_strength;
 #define FC gl_FragCoord.xy
 #define R resolution
 #define T (time+660.)
@@ -49,20 +51,20 @@ float noise(vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);return mix(mix(rn
 float fbm(vec2 p){float t=.0,a=1.;for(int i=0;i<3;i++){t+=a*noise(p);p*=mat2(1,-1.2,.2,1.2)*2.;a*=.5;}return t;}
 void main(){
   vec2 uv=(FC-.5*R)/R.y;
-  vec3 col=vec3(1);
   uv.x+=.25;
   uv*=vec2(2,1);
   float n=fbm(uv*.28-vec2(T*.01,0));
   n=noise(uv*3.+n*2.);
-  col.r-=fbm(uv+vec2(0,T*.015)+n);
-  col.g-=fbm(uv*1.003+vec2(0,T*.015)+n+.003);
-  col.b-=fbm(uv*1.006+vec2(0,T*.015)+n+.006);
-  col=mix(col,u_color,dot(col,vec3(.21,.71,.07)));
-  col=mix(vec3(.08),col,min(time*.1,1.));
+  float a=fbm(uv+vec2(0,T*.015)+n);
+  float b=fbm(uv*1.004+vec2(0,T*.015)+n+.004);
+  float c=fbm(uv*1.008+vec2(0,T*.015)+n+.008);
+  float w=clamp(1.-(a+b+c)/3.,0.,1.);
+  w=pow(w,1.4)*u_strength*min(time*.12,1.);
+  // accent wisps sitting on the page background, so text stays readable in both themes
+  vec3 col=mix(u_bg,u_color,w);
   float l=dot(col,vec3(.299,.587,.114));
-  col=mix(vec3(l),col,1.5); // boost saturation so the orange isn't dull
-  col=clamp(col,.06,1.);
-  O=vec4(col,1);
+  col=mix(vec3(l),col,1.4); // saturation
+  O=vec4(clamp(col,0.,1.),1);
 }`;
 const SMOKE_VERT = `#version 300 es
 precision highp float;
@@ -102,12 +104,23 @@ function SmokeBackground() {
   const uRes = gl.getUniformLocation(prog, 'resolution');
   const uTime = gl.getUniformLocation(prog, 'time');
   const uColor = gl.getUniformLocation(prog, 'u_color');
+  const uBg = gl.getUniformLocation(prog, 'u_bg');
+  const uStrength = gl.getUniformLocation(prog, 'u_strength');
 
-  // Keep the smoke in the site's orange, and re-read --accent when the theme
-  // toggles so it works in both light and dark.
-  const readAccent = () => hexToRgb(getComputedStyle(document.documentElement).getPropertyValue('--accent'));
-  let color = readAccent();
-  const themeObs = new MutationObserver(() => { color = readAccent(); });
+  // Read the theme's background + accent so the smoke matches it (orange-on-dark
+  // in dark mode, the complement on light), and re-read when the theme toggles.
+  // Lower strength in light mode keeps the field bright enough for dark text.
+  const readColors = () => {
+   const cs = getComputedStyle(document.documentElement);
+   const light = document.documentElement.getAttribute('data-theme') !== 'dark';
+   return {
+    bg: hexToRgb(cs.getPropertyValue('--bg')),
+    color: hexToRgb(cs.getPropertyValue('--accent')),
+    strength: light ? 0.62 : 1.0,
+   };
+  };
+  let c = readColors();
+  const themeObs = new MutationObserver(() => { c = readColors(); });
   themeObs.observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
 
   // Render at half resolution (the smoke is soft, so upscaling is invisible) to
@@ -125,7 +138,9 @@ function SmokeBackground() {
   const render = (now) => {
    gl.uniform2f(uRes, canvas.width, canvas.height);
    gl.uniform1f(uTime, now * 1e-3);
-   gl.uniform3fv(uColor, color);
+   gl.uniform3fv(uColor, c.color);
+   gl.uniform3fv(uBg, c.bg);
+   gl.uniform1f(uStrength, c.strength);
    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   };
 
