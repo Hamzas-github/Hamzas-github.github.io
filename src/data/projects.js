@@ -38,6 +38,16 @@ const projects = [
     image: 'img/projects/ecommerce/01_monthly_revenue.png',
   },
   {
+    title: 'Retail Sales Performance Dashboard',
+    year: '2026',
+    summary:
+      'An interactive Power BI dashboard on the Superstore dataset: $2.30M of sales broken down by category, sub-category profitability, customer segment, region and monthly trend, with slicers so a manager can answer their own questions.',
+    stack: ['Power BI', 'DAX', 'Excel', 'Data viz'],
+    to: '/projects/retail-sales-dashboard',
+    repo: 'https://github.com/Hamzas-github/retail-sales-dashboard-powerbi',
+    image: 'img/projects/retail-powerbi/dashboard-overview.png',
+  },
+  {
     title: 'London Rental Market Analysis',
     year: '2025',
     summary:
@@ -46,6 +56,16 @@ const projects = [
     to: '/projects/london-rental-analysis',
     repo: 'https://github.com/Hamzas-github/london-rental-analysis',
     image: 'img/projects/london-rental/02_most_expensive_areas.png',
+  },
+  {
+    title: 'EyeSpeak, eye-tracking communication board',
+    year: '2026',
+    summary:
+      'A webcam AAC board that lets someone talk by looking at a card and blinking, real-time gaze tracking and blink detection running entirely on-device in the browser. Built with WebGazer and MediaPipe. A different muscle from my analytics work.',
+    stack: ['Computer vision', 'MediaPipe', 'WebAssembly', 'Web Speech API', 'JavaScript'],
+    to: '/projects/eyespeak',
+    repo: 'https://github.com/Hamzas-github/eyespeak',
+    image: 'img/projects/eyespeak/cover.png',
   },
 ];
 

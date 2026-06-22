@@ -39,6 +39,19 @@ a Power BI dashboard. Built around the questions a retail business actually asks
 
 ---
 
+## Retail Sales Performance Dashboard
+
+An interactive Power BI dashboard on the Superstore dataset: $2.30M of sales broken down
+by category, sub-category profitability, customer segment, region and monthly trend, with
+slicers so a manager can answer their own questions.
+
+**Power BI, DAX, Excel, data visualization**
+
+[Read the case study](./retail-sales-dashboard.md) |
+[Code on GitHub](https://github.com/Hamzas-github/retail-sales-dashboard-powerbi)
+
+---
+
 ## London Rental Market Analysis
 
 An end-to-end analysis of 2,838 London rental listings: data cleaning, a SQLite
@@ -49,6 +62,20 @@ dashboard, built to be reproducible end-to-end.
 
 [Read the case study](./london-rental-analysis.md) |
 [Code on GitHub](https://github.com/Hamzas-github/london-rental-analysis)
+
+---
+
+## EyeSpeak, eye-tracking communication board
+
+A bit different from the data work, and that's the point. A webcam AAC board that lets
+someone talk by looking at a card and blinking, with real-time gaze tracking and blink
+detection running entirely on-device in the browser. Built with WebGazer and MediaPipe.
+
+**Computer vision, MediaPipe, WebAssembly, Web Speech API, Vanilla JS**
+
+[Read the case study](./eyespeak.md) |
+[Live demo](https://hamzas-github.github.io/eyespeak/) |
+[Code on GitHub](https://github.com/Hamzas-github/eyespeak)
 
 ---
 
