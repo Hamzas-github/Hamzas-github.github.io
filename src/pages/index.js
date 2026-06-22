@@ -30,81 +30,113 @@ function Avatar({personal}) {
  );
 }
 
-// Lava-lamp background: a tiny particle sim (5 blobs). Each has velocity, gentle
-// buoyancy, and soft pairwise repulsion that weakens when two blobs approach
-// fast — so they bounce apart normally but merge through on strong momentum (the
-// CSS blur fuses the overlap). Also repelled gently by the cursor. ~10 pair
-// checks/frame, so it stays cheap.
-function HeroLava() {
+// Animated WebGL2 smoke background (fragment-shader fbm noise). Adapted from the
+// "spooky smoke" shader; the bright parts are tinted with the site accent so the
+// smoke reads in our orange. Falls back to the CSS background colour if WebGL2 is
+// unavailable. ponytail: inlined GL setup (one shader, one fullscreen quad) instead
+// of a class — there's only ever one instance.
+const SMOKE_FRAG = `#version 300 es
+precision highp float;
+out vec4 O;
+uniform float time;
+uniform vec2 resolution;
+uniform vec3 u_color;
+#define FC gl_FragCoord.xy
+#define R resolution
+#define T (time+660.)
+float rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}
+float noise(vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);return mix(mix(rnd(i),rnd(i+vec2(1,0)),u.x),mix(rnd(i+vec2(0,1)),rnd(i+1.),u.x),u.y);}
+float fbm(vec2 p){float t=.0,a=1.;for(int i=0;i<5;i++){t+=a*noise(p);p*=mat2(1,-1.2,.2,1.2)*2.;a*=.5;}return t;}
+void main(){
+  vec2 uv=(FC-.5*R)/R.y;
+  vec3 col=vec3(1);
+  uv.x+=.25;
+  uv*=vec2(2,1);
+  float n=fbm(uv*.28-vec2(T*.01,0));
+  n=noise(uv*3.+n*2.);
+  col.r-=fbm(uv+vec2(0,T*.015)+n);
+  col.g-=fbm(uv*1.003+vec2(0,T*.015)+n+.003);
+  col.b-=fbm(uv*1.006+vec2(0,T*.015)+n+.006);
+  col=mix(col,u_color,dot(col,vec3(.21,.71,.07)));
+  col=mix(vec3(.08),col,min(time*.1,1.));
+  col=clamp(col,.08,1.);
+  O=vec4(col,1);
+}`;
+const SMOKE_VERT = `#version 300 es
+precision highp float;
+in vec4 position;
+void main(){gl_Position=position;}`;
+
+function hexToRgb(hex) {
+ const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec((hex || '').trim());
+ return m ? [parseInt(m[1], 16) / 255, parseInt(m[2], 16) / 255, parseInt(m[3], 16) / 255] : [0.8, 0.48, 0.34];
+}
+
+function SmokeBackground() {
  const ref = useRef(null);
  useEffect(() => {
-  const root = ref.current;
-  if (!root) return;
-  const els = [...root.querySelectorAll('i')];
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const rand = (a, b) => a + Math.random() * (b - a);
-  let W = root.clientWidth, H = root.clientHeight;
-  const onResize = () => { W = root.clientWidth; H = root.clientHeight; };
-  window.addEventListener('resize', onResize);
+  const canvas = ref.current;
+  const gl = canvas && canvas.getContext('webgl2');
+  if (!gl) return;
 
-  const P = els.map((el) => {
-   const r = (el.offsetWidth || 160) / 2;
-   return {x: rand(r, W - r), y: rand(r, H - r), vx: rand(-6, 6), vy: rand(-6, 6), r};
-  });
-  let mouse = {x: -1e4, y: -1e4};
-  const onMove = (e) => {
-   const b = root.getBoundingClientRect();
-   mouse = {x: e.clientX - b.left, y: e.clientY - b.top};
+  const compile = (type, src) => {
+   const s = gl.createShader(type);
+   gl.shaderSource(s, src); gl.compileShader(s);
+   if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s));
+   return s;
   };
-  window.addEventListener('mousemove', onMove);
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compile(gl.VERTEX_SHADER, SMOKE_VERT));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, SMOKE_FRAG));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
 
-  let raf, last = performance.now();
-  const tick = (t) => {
-   let dt = (t - last) / 16.67; last = t; if (dt > 3) dt = 3;
-   if (!reduce) {
-    for (let i = 0; i < P.length; i++) {
-     const a = P[i];
-     a.vy += Math.sin(t / 1000 * 0.3 + i) * 0.05 * dt;       // buoyancy bob
-     a.vx += Math.sin(t / 1000 * 0.22 + i * 2) * 0.035 * dt;
-     for (let j = i + 1; j < P.length; j++) {
-      const b = P[j];
-      const dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 0.001;
-      const min = (a.r + b.r) * 0.8;
-      if (d < min) {
-       const rel = Math.hypot(a.vx - b.vx, a.vy - b.vy);
-       const join = Math.min(rel / 13, 1);                   // fast approach -> merge
-       const f = (1 - d / min) * 0.5 * (1 - join) * dt;
-       const ux = dx / d, uy = dy / d;
-       a.vx -= ux * f; a.vy -= uy * f; b.vx += ux * f; b.vy += uy * f;
-      }
-     }
-     const mdx = a.x - mouse.x, mdy = a.y - mouse.y, md = Math.hypot(mdx, mdy);
-     if (md < 210 && md > 0) { const f = (1 - md / 210) * 5 * dt; a.vx += (mdx / md) * f; a.vy += (mdy / md) * f; }
-     a.vx *= 0.985; a.vy *= 0.985;
-     a.x += a.vx * dt; a.y += a.vy * dt;
-     if (a.x < a.r) { a.x = a.r; a.vx = Math.abs(a.vx) * 0.6; }
-     if (a.x > W - a.r) { a.x = W - a.r; a.vx = -Math.abs(a.vx) * 0.6; }
-     if (a.y < a.r) { a.y = a.r; a.vy = Math.abs(a.vy) * 0.6; }
-     if (a.y > H - a.r) { a.y = H - a.r; a.vy = -Math.abs(a.vy) * 0.6; }
-    }
-   }
-   for (let i = 0; i < els.length; i++) {
-    els[i].style.transform = `translate(${P[i].x}px, ${P[i].y}px) translate(-50%, -50%)`;
-   }
-   raf = requestAnimationFrame(tick);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, 1, -1, -1, 1, 1, 1, -1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uRes = gl.getUniformLocation(prog, 'resolution');
+  const uTime = gl.getUniformLocation(prog, 'time');
+  const uColor = gl.getUniformLocation(prog, 'u_color');
+
+  // Keep the smoke in the site's orange (reads --accent, so it follows the theme).
+  const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent');
+  const color = hexToRgb(accent);
+
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const resize = () => {
+   canvas.width = Math.max(1, canvas.clientWidth * dpr);
+   canvas.height = Math.max(1, canvas.clientHeight * dpr);
+   gl.viewport(0, 0, canvas.width, canvas.height);
   };
-  raf = requestAnimationFrame(tick);
+  resize();
+  const ro = new ResizeObserver(resize);
+  ro.observe(canvas);
+
+  const render = (now) => {
+   gl.uniform2f(uRes, canvas.width, canvas.height);
+   gl.uniform1f(uTime, now * 1e-3);
+   gl.uniform3fv(uColor, color);
+   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  };
+
+  let raf;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+   render(2000); // one static frame
+  } else {
+   const loop = (now) => { render(now); raf = requestAnimationFrame(loop); };
+   raf = requestAnimationFrame(loop);
+  }
   return () => {
    cancelAnimationFrame(raf);
-   window.removeEventListener('mousemove', onMove);
-   window.removeEventListener('resize', onResize);
+   ro.disconnect();
+   gl.deleteProgram(prog);
+   gl.deleteBuffer(buf);
   };
  }, []);
- return (
-  <div className={styles.lava} ref={ref} aria-hidden="true">
-   <i /><i /><i /><i /><i />
-  </div>
- );
+ return <canvas ref={ref} className={styles.smoke} aria-hidden="true" />;
 }
 
 function HomepageHeader() {
@@ -112,7 +144,7 @@ function HomepageHeader() {
  const {personal} = siteConfig.customFields;
  return (
  <header className={styles.hero}>
- <HeroLava />
+ <SmokeBackground />
  <div className={clsx('container', styles.heroInner)}>
  <div className={styles.heroText}>
  <p className={clsx('mono-label', styles.heroEyebrow)}>
