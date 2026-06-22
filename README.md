@@ -31,14 +31,6 @@ write-up and its own code repository.
 - **JavaScript & CSS** — site content, components, and styling
 - **GitHub Pages + GitHub Actions** — hosting and automated build/deploy
 
-## Running locally
-
-```bash
-npm install
-npm start          # dev server with live reload at http://localhost:3000
-npm run build      # static output in ./build
-npm run serve      # preview the production build
-```
 
 ## Repository layout
 
