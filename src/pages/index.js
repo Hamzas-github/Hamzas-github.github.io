@@ -46,7 +46,7 @@ uniform vec3 u_color;
 #define T (time+660.)
 float rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);return mix(mix(rnd(i),rnd(i+vec2(1,0)),u.x),mix(rnd(i+vec2(0,1)),rnd(i+1.),u.x),u.y);}
-float fbm(vec2 p){float t=.0,a=1.;for(int i=0;i<5;i++){t+=a*noise(p);p*=mat2(1,-1.2,.2,1.2)*2.;a*=.5;}return t;}
+float fbm(vec2 p){float t=.0,a=1.;for(int i=0;i<3;i++){t+=a*noise(p);p*=mat2(1,-1.2,.2,1.2)*2.;a*=.5;}return t;}
 void main(){
   vec2 uv=(FC-.5*R)/R.y;
   vec3 col=vec3(1);
@@ -59,7 +59,9 @@ void main(){
   col.b-=fbm(uv*1.006+vec2(0,T*.015)+n+.006);
   col=mix(col,u_color,dot(col,vec3(.21,.71,.07)));
   col=mix(vec3(.08),col,min(time*.1,1.));
-  col=clamp(col,.08,1.);
+  float l=dot(col,vec3(.299,.587,.114));
+  col=mix(vec3(l),col,1.5); // boost saturation so the orange isn't dull
+  col=clamp(col,.06,1.);
   O=vec4(col,1);
 }`;
 const SMOKE_VERT = `#version 300 es
@@ -101,14 +103,19 @@ function SmokeBackground() {
   const uTime = gl.getUniformLocation(prog, 'time');
   const uColor = gl.getUniformLocation(prog, 'u_color');
 
-  // Keep the smoke in the site's orange (reads --accent, so it follows the theme).
-  const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent');
-  const color = hexToRgb(accent);
+  // Keep the smoke in the site's orange, and re-read --accent when the theme
+  // toggles so it works in both light and dark.
+  const readAccent = () => hexToRgb(getComputedStyle(document.documentElement).getPropertyValue('--accent'));
+  let color = readAccent();
+  const themeObs = new MutationObserver(() => { color = readAccent(); });
+  themeObs.observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
 
-  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  // Render at half resolution (the smoke is soft, so upscaling is invisible) to
+  // keep it cheap on the GPU.
+  const RES = 0.5;
   const resize = () => {
-   canvas.width = Math.max(1, canvas.clientWidth * dpr);
-   canvas.height = Math.max(1, canvas.clientHeight * dpr);
+   canvas.width = Math.max(1, Math.round(canvas.clientWidth * RES));
+   canvas.height = Math.max(1, Math.round(canvas.clientHeight * RES));
    gl.viewport(0, 0, canvas.width, canvas.height);
   };
   resize();
@@ -122,16 +129,22 @@ function SmokeBackground() {
    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   };
 
-  let raf;
+  let raf, last = -1e3;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
    render(2000); // one static frame
   } else {
-   const loop = (now) => { render(now); raf = requestAnimationFrame(loop); };
+   const loop = (now) => {
+    raf = requestAnimationFrame(loop);
+    if (now - last < 33) return; // cap to ~30fps; the motion is slow
+    last = now;
+    render(now);
+   };
    raf = requestAnimationFrame(loop);
   }
   return () => {
    cancelAnimationFrame(raf);
    ro.disconnect();
+   themeObs.disconnect();
    gl.deleteProgram(prog);
    gl.deleteBuffer(buf);
   };
