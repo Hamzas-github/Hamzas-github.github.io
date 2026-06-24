@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import ChatBot from '@site/src/components/ChatBot';
 
 export default function Root({children}) {
   // Magnetic orange-dot cursor. Idle: a visible dot following the mouse. Near a
@@ -94,5 +95,10 @@ export default function Root({children}) {
     return () => io.disconnect();
   }, []);
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <ChatBot />
+    </>
+  );
 }
