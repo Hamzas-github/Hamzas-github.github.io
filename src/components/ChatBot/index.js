@@ -4,16 +4,32 @@ import styles from './styles.module.css';
 
 const GREETING = {
   role: 'assistant',
-  content: "Hi, I'm Hamza's assistant. Ask me about his projects, skills, or background.",
+  content: "Hi, I'm Hamza. Ask me about my projects, skills, or background.",
 };
 
-// Speak text aloud with the browser's built-in voice (free; not Hamza's real voice yet).
-function speak(text) {
+// Fallback: browser's built-in voice, used only if the cloned voice fails.
+function browserSpeak(text) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.rate = 1.02;
   window.speechSynthesis.speak(u);
+}
+
+// Speak with Hamza's cloned voice via the worker's /speak route; fall back to browser voice.
+async function speak(text, endpoint) {
+  try {
+    const res = await fetch(endpoint.replace(/\/$/, '') + '/speak', {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({text}),
+    });
+    if (!res.ok) throw new Error('tts');
+    const audio = new Audio(URL.createObjectURL(await res.blob()));
+    audio.play();
+  } catch {
+    browserSpeak(text);
+  }
 }
 
 export default function ChatBot() {
@@ -73,7 +89,7 @@ export default function ChatBot() {
               <div key={i} className={m.role === 'user' ? styles.user : styles.bot}>
                 <div className={styles.bubble}>{m.content}</div>
                 {m.role === 'assistant' && (
-                  <button className={styles.speak} onClick={() => speak(m.content)} aria-label="Read aloud">
+                  <button className={styles.speak} onClick={() => speak(m.content, endpoint)} aria-label="Read aloud">
                     Read aloud
                   </button>
                 )}

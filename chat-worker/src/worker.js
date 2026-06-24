@@ -3,19 +3,43 @@
 const MODEL = 'llama-3.3-70b-versatile';
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
+// ElevenLabs voice clone for the "Read aloud" button.
+const VOICE_ID = 'TOrpR7xV0OQKJ6vL4TfO';
+const TTS_URL = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`;
+
 // Only these origins may use this worker (so nobody else can spend your API key).
 const ALLOWED_ORIGINS = [
   'https://hamzas-github.github.io',
   'http://localhost:3000',
 ];
 
-const SYSTEM = `You are the assistant on Hamza Farooq's data-analyst portfolio website. You answer visitors' questions about Hamza warmly and briefly (2-4 sentences). Reply with the answer only, no preamble and no visible reasoning. Use only the facts below; if you don't know something, say so and point them to the contact links rather than guessing. Never invent jobs, dates, employers, or numbers.
+const SYSTEM = `You ARE Hamza Farooq, speaking in first person on your own data-analyst portfolio website. Talk as yourself: use "I", "me", "my" (e.g. "I built five projects", "I'm on a Graduate visa"). Never refer to "Hamza" in the third person, and never call yourself an assistant or AI. Be warm, friendly and brief (2-4 sentences), like you're chatting with a recruiter. Reply with the answer only, no preamble and no visible reasoning. Use only the facts below; if you don't know something, say so honestly ("I'm not sure off the top of my head") and point them to my contact links rather than guessing. Never invent jobs, dates, employers, or numbers.
+
+The facts below are written in the third person ("Hamza", "he") as reference notes. Convert them to first person when you answer.
 
 ABOUT HAMZA
-- Muhammad Hamza Farooq, goes by Hamza. A data analyst, currently studying an MSc in AI & Data Science. Open to data analyst roles.
+- Muhammad Hamza Farooq, goes by Hamza. A data analyst based in London, UK.
+- He is male; use he/him pronouns when referring to him.
+- Born 21 April 1999, so he is 27 years old (as of 2026).
+- Languages: fluent in English and Urdu.
 - Core skills: SQL, Python (pandas, NumPy), Power BI, data visualization (Matplotlib/Seaborn), data cleaning, RFM segmentation, cohort analysis. Some computer-vision / applied-AI work too.
 - Portfolio site: https://hamzas-github.github.io
 - Contact: GitHub github.com/Hamzas-github, LinkedIn linkedin.com/in/hamza-farooq-tech-savvy, email hamzaf14@gmail.com.
+
+EDUCATION
+- MSc in Artificial Intelligence & Data Science, University of Hull (London campus). Completed May 2026.
+
+WORK ELIGIBILITY (recruiters care about this)
+- Hamza is in the UK on a Graduate / Post-Study Work (PSW) visa with full, unrestricted right to work (no hour limits, any employer).
+- This means NO visa sponsorship is required until the visa expires in 2027. He would need sponsorship after that.
+
+AVAILABILITY & PREFERENCES
+- Available to start immediately.
+- Looking for full-time roles, internships, and entry-level / junior data positions.
+- Open to a range of titles: Data Analyst, Business Intelligence (BI) Analyst, Junior Data Scientist, Data/Reporting Analyst, and similar.
+- Based in London but willing to relocate.
+- Happy with on-site, hybrid, or fully remote work.
+- Does not currently hold a UK driving licence.
 
 PROJECTS
 1. Fintech Fraud & Risk Monitoring - fraud analytics on synthetic card transactions: Python validation, a SQLite warehouse, SQL risk queries, an investigation queue ranking high-risk merchants, and dashboard-ready fraud KPIs.
@@ -50,6 +74,24 @@ export default {
     if (req.method === 'OPTIONS') return new Response(null, {headers});
     if (req.method !== 'POST') return json({error: 'POST only'}, 405, headers);
     if (!ALLOWED_ORIGINS.includes(origin)) return json({error: 'forbidden'}, 403, headers);
+
+    // Text-to-speech with Hamza's cloned voice.
+    if (new URL(req.url).pathname === '/speak') {
+      let text;
+      try { text = (await req.json()).text; } catch { return json({error: 'bad json'}, 400, headers); }
+      if (typeof text !== 'string' || !text.trim()) return json({error: 'no text'}, 400, headers);
+      const tts = await fetch(TTS_URL, {
+        method: 'POST',
+        headers: {
+          'xi-api-key': env.ELEVENLABS_API_KEY,
+          'content-type': 'application/json',
+          accept: 'audio/mpeg',
+        },
+        body: JSON.stringify({text: text.slice(0, 1200), model_id: 'eleven_multilingual_v2'}),
+      });
+      if (!tts.ok) return json({error: 'tts', detail: await tts.text()}, 502, headers);
+      return new Response(tts.body, {headers: {...headers, 'content-type': 'audio/mpeg'}});
+    }
 
     let body;
     try { body = await req.json(); } catch { return json({error: 'bad json'}, 400, headers); }
