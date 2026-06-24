@@ -1,8 +1,7 @@
-import Anthropic from '@anthropic-ai/sdk';
-
-// Model: Opus 4.8 gives the best answers. For a public portfolio chatbot you can
-// swap this to 'claude-haiku-4-5' for roughly 5x lower cost per question.
-const MODEL = 'claude-opus-4-8';
+// Groq: free, fast, OpenAI-compatible. Get a key at https://console.groq.com.
+// Swap MODEL for any model Groq lists (e.g. 'llama-3.1-8b-instant' for lighter load).
+const MODEL = 'llama-3.3-70b-versatile';
+const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 // Only these origins may use this worker (so nobody else can spend your API key).
 const ALLOWED_ORIGINS = [
@@ -65,19 +64,24 @@ export default {
       return json({error: 'expected a user message'}, 400, headers);
     }
 
-    const client = new Anthropic({apiKey: env.ANTHROPIC_API_KEY});
     try {
-      const resp = await client.messages.create({
-        model: MODEL,
-        max_tokens: 400,
-        system: SYSTEM,
-        messages,
+      const upstream = await fetch(GROQ_URL, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          authorization: `Bearer ${env.GROQ_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: MODEL,
+          max_tokens: 400,
+          messages: [{role: 'system', content: SYSTEM}, ...messages],
+        }),
       });
-      const reply = resp.content
-        .filter((b) => b.type === 'text')
-        .map((b) => b.text)
-        .join('')
-        .trim();
+      if (!upstream.ok) {
+        return json({error: 'upstream', detail: await upstream.text()}, 502, headers);
+      }
+      const data = await upstream.json();
+      const reply = (data.choices?.[0]?.message?.content || '').trim();
       return json({reply}, 200, headers);
     } catch (e) {
       return json({error: 'upstream', detail: String(e?.message || e)}, 502, headers);

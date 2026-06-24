@@ -1,13 +1,13 @@
 # Chat worker
 
-A tiny Cloudflare Worker that powers the portfolio chatbot. It holds the Anthropic
+A tiny Cloudflare Worker that powers the portfolio chatbot. It holds the Groq
 API key (never exposed to the browser), injects Hamza's bio as the system prompt,
-and proxies the chat to Claude. The site calls this worker; the key stays server-side.
+and proxies the chat to a free Groq model. The site calls this worker; the key
+stays server-side.
 
 ## One-time setup
 
-1. **Get an Anthropic API key** at <https://console.anthropic.com> (Billing -> add a
-   little credit; a portfolio's traffic costs cents).
+1. **Get a free Groq API key** at <https://console.groq.com> (no credit card; free tier).
 2. **Install + log in to Cloudflare** (free account):
    ```bash
    cd chat-worker
@@ -16,7 +16,7 @@ and proxies the chat to Claude. The site calls this worker; the key stays server
    ```
 3. **Store the key as a secret** (not in any file):
    ```bash
-   npx wrangler secret put ANTHROPIC_API_KEY
+   npx wrangler secret put GROQ_API_KEY
    # paste the key when prompted
    ```
 4. **Deploy**:
@@ -31,6 +31,7 @@ and proxies the chat to Claude. The site calls this worker; the key stays server
 
 - Allowed origins are pinned in `src/worker.js` (`ALLOWED_ORIGINS`) so only your site
   can use the worker. Add a domain there if you ever move the site.
-- Model is `claude-opus-4-8`. To cut cost ~5x, change `MODEL` to `claude-haiku-4-5`.
+- Model is `llama-3.3-70b-versatile` (free on Groq). Swap `MODEL` in `src/worker.js`
+  for any model Groq lists (e.g. `llama-3.1-8b-instant` for lighter, faster replies).
 - History is capped to the last 10 turns and each message to 2000 chars to limit abuse.
   For heavier traffic, add Cloudflare rate limiting in front of the worker.

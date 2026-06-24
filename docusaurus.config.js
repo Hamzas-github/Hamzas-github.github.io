@@ -78,7 +78,7 @@ const config = {
     personal,
     // Chatbot proxy URL (the deployed Cloudflare Worker in chat-worker/).
     // While null, the chat widget is hidden. Set to your workers.dev URL to enable.
-    chatEndpoint: null,
+    chatEndpoint: 'https://hamza-chat-worker.hamzas-dev.workers.dev',
   },
 
   presets: [
