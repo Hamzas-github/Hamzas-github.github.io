@@ -24,6 +24,7 @@ const projects = [
       'A floating chat on this site that answers questions about me in the first person, and reads each answer aloud in a clone of my own voice. A framework-free widget backed by a Cloudflare Worker that keeps the API keys server-side and proxies to Groq and ElevenLabs, finished with an iOS-style liquid-glass panel.',
     stack: ['JavaScript', 'Cloudflare Workers', 'Groq LLM', 'ElevenLabs', 'Liquid glass UI'],
     repo: 'https://github.com/Hamzas-github/ai-portfolio-chatbot',
+    image: 'img/projects/ai-chatbot/cover.svg',
   },
   {
     title: 'Fintech Fraud & Risk Monitoring',
