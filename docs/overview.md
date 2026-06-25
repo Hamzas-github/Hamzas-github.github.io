@@ -79,5 +79,19 @@ detection running entirely on-device in the browser. Built with WebGazer and Med
 
 ---
 
+## AI Portfolio Chatbot
+
+The chat bubble on this site. It answers questions about me in the first person and reads
+each answer aloud in a clone of my own voice. A framework-free widget backed by a
+Cloudflare Worker that keeps the API keys server-side and proxies to Groq and ElevenLabs,
+finished with an iOS-style liquid-glass panel.
+
+**JavaScript, Cloudflare Workers, Groq LLM, ElevenLabs, liquid-glass UI**
+
+[Read the case study](./ai-chatbot.md) |
+[Code on GitHub](https://github.com/Hamzas-github/ai-portfolio-chatbot)
+
+---
+
 More projects coming. Want to see something specific, or talk about a role?
 [Get in touch.](/about)
