@@ -14,7 +14,7 @@ const personal = {
   availability: 'Open to data analyst roles',
   location: 'United Kingdom',
   github: 'https://github.com/Hamzas-github',
-  linkedin: 'https://www.linkedin.com/in/hamza-farooq-tech-savvy/',
+  linkedin: 'https://www.linkedin.com/in/hamza-farooq-ai/',
   email: 'hamzaf14@gmail.com',
   // Profile photo: drop an image at static/img/<file> and set the path here
   // (e.g. 'img/hamza.jpg'). While null, a clean monogram placeholder is shown.

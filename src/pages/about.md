@@ -41,5 +41,5 @@ You can see the whole arc in my
 I'm looking for data analyst roles, and I'm always happy to talk shop.
 
 - **GitHub:** [Hamzas-github](https://github.com/Hamzas-github)
-- **LinkedIn:** [hamza-farooq-tech-savvy](https://www.linkedin.com/in/hamza-farooq-tech-savvy/)
+- **LinkedIn:** [hamza-farooq-ai](https://www.linkedin.com/in/hamza-farooq-ai/)
 - **Email:** [hamzaf14@gmail.com](mailto:hamzaf14@gmail.com)
