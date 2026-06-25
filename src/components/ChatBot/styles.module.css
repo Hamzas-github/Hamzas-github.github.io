@@ -15,7 +15,7 @@
   background: var(--accent);
   color: #fff;
   border-radius: 999px;
-  cursor: pointer;
+  cursor: none;
   box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 35%, transparent);
   transition: transform 0.18s ease;
 }
@@ -84,7 +84,7 @@
   font-size: 1.4rem;
   line-height: 1;
   color: rgba(255, 255, 255, 0.6);
-  cursor: pointer;
+  cursor: none;
 }
 
 .list {
@@ -145,6 +145,6 @@
   border-radius: 10px;
   padding: 0 0.9rem;
   font-weight: 600;
-  cursor: pointer;
+  cursor: none;
 }
 .send:disabled { opacity: 0.5; cursor: default; }
