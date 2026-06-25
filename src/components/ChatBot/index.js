@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import LiquidGlass from './LiquidGlass';
 import styles from './styles.module.css';
 
 const GREETING = {
@@ -40,6 +41,7 @@ export default function ChatBot() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const listRef = useRef(null);
+  const panelRef = useRef(null);
   const greeted = useRef(false);
 
   useEffect(() => {
@@ -88,16 +90,9 @@ export default function ChatBot() {
 
   return (
     <div className={styles.root}>
-      {/* Displacement map that warps the panel's backdrop for the liquid-glass look. */}
-      <svg width="0" height="0" style={{position: 'absolute'}} aria-hidden="true">
-        <filter id="glassDisplace">
-          <feTurbulence type="fractalNoise" baseFrequency="0.012 0.012" numOctaves="2" seed="7" result="noise" />
-          <feGaussianBlur in="noise" stdDeviation="2" result="soft" />
-          <feDisplacementMap in="SourceGraphic" in2="soft" scale="16" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-      </svg>
+      <LiquidGlass panelRef={panelRef} radius={22} active={open} />
       {open && (
-        <div className={styles.panel} role="dialog" aria-label="Chat with Hamza's assistant">
+        <div className={styles.panel} ref={panelRef} role="dialog" aria-label="Chat with Hamza's assistant">
           <div className={styles.header}>
             <span>Ask about Hamza</span>
             <button className={styles.close} onClick={() => setOpen(false)} aria-label="Close chat">×</button>
