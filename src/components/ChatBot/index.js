@@ -18,7 +18,9 @@ function browserSpeak(text) {
 }
 
 // Speak with Hamza's cloned voice via the worker's /speak route; fall back to browser voice.
-async function speak(text, endpoint) {
+// Stores the playing <audio> in audioRef so it can be stopped when the chat closes.
+async function speak(text, endpoint, audioRef) {
+  stopVoice(audioRef); // never overlap with a previous answer
   try {
     const res = await fetch(endpoint.replace(/\/$/, '') + '/speak', {
       method: 'POST',
@@ -27,10 +29,17 @@ async function speak(text, endpoint) {
     });
     if (!res.ok) throw new Error('tts');
     const audio = new Audio(URL.createObjectURL(await res.blob()));
+    audioRef.current = audio;
     audio.play();
   } catch {
     browserSpeak(text);
   }
+}
+
+// Stop whichever voice is talking, cloned audio or the browser fallback.
+function stopVoice(audioRef) {
+  if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
 }
 
 export default function ChatBot() {
@@ -43,6 +52,9 @@ export default function ChatBot() {
   const listRef = useRef(null);
   const panelRef = useRef(null);
   const greeted = useRef(false);
+  const audioRef = useRef(null);
+
+  const closeChat = () => { stopVoice(audioRef); setOpen(false); };
 
   useEffect(() => {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
@@ -52,7 +64,7 @@ export default function ChatBot() {
   useEffect(() => {
     if (open && endpoint && !greeted.current) {
       greeted.current = true;
-      speak(GREETING.content, endpoint);
+      speak(GREETING.content, endpoint, audioRef);
     }
   }, [open, endpoint]);
 
@@ -76,7 +88,7 @@ export default function ChatBot() {
       const data = await res.json();
       const reply = data.reply || "Sorry, I couldn't answer that. Try the contact links on the site.";
       setMessages((m) => [...m, {role: 'assistant', content: reply}]);
-      speak(reply, endpoint); // auto read the answer aloud in Hamza's voice
+      speak(reply, endpoint, audioRef); // auto read the answer aloud in Hamza's voice
     } catch {
       setMessages((m) => [...m, {role: 'assistant', content: 'Network error, please try again.'}]);
     } finally {
@@ -95,7 +107,7 @@ export default function ChatBot() {
         <div className={styles.panel} ref={panelRef} role="dialog" aria-label="Chat with Hamza's assistant">
           <div className={styles.header}>
             <span>Ask about Hamza</span>
-            <button className={styles.close} onClick={() => setOpen(false)} aria-label="Close chat">×</button>
+            <button className={styles.close} onClick={closeChat} aria-label="Close chat">×</button>
           </div>
           <div className={styles.list} ref={listRef}>
             {messages.map((m, i) => (
@@ -118,7 +130,7 @@ export default function ChatBot() {
           </div>
         </div>
       )}
-      <button className={styles.fab} onClick={() => setOpen((o) => !o)} aria-label={open ? 'Close chat' : 'Open chat'}>
+      <button className={styles.fab} onClick={() => (open ? closeChat() : setOpen(true))} aria-label={open ? 'Close chat' : 'Open chat'}>
         {open ? (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
             <path d="M6 6l12 12M18 6L6 18" />
