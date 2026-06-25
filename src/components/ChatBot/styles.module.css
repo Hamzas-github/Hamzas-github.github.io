@@ -7,32 +7,41 @@
 }
 
 .fab {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
   border: 1px solid var(--accent);
   background: var(--accent);
   color: #fff;
   border-radius: 999px;
-  padding: 0.7rem 1.25rem;
-  font-weight: 600;
-  font-size: 0.95rem;
   cursor: pointer;
   box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 35%, transparent);
   transition: transform 0.18s ease;
 }
-.fab:hover { transform: translateY(-2px); color: #fff; }
+.fab:hover { transform: translateY(-2px) scale(1.05); color: #fff; }
+.fab svg { width: 26px; height: 26px; display: block; }
 
+/* iOS-style liquid glass: translucent 60%-dark fill + blurred, displaced backdrop. */
 .panel {
   position: absolute;
   right: 0;
-  bottom: 56px;
+  bottom: 66px;
   width: min(360px, 88vw);
   height: min(520px, 70vh);
   display: flex;
   flex-direction: column;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
+  background: rgba(18, 16, 14, 0.6);
+  backdrop-filter: url(#glassDisplace) blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 22px;
   overflow: hidden;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+  color: #f2efec;
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .header {
@@ -40,16 +49,17 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   font-family: var(--font-display);
   font-weight: 600;
+  color: #fff;
 }
 .close {
   background: none;
   border: none;
   font-size: 1.4rem;
   line-height: 1;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
 }
 
@@ -77,43 +87,31 @@
   border-bottom-right-radius: 4px;
 }
 .bot .bubble {
-  background: var(--surface-2);
-  color: var(--text);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.1);
+  color: #f2efec;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-bottom-left-radius: 4px;
 }
-
-.speak {
-  margin-top: 0.25rem;
-  background: none;
-  border: none;
-  padding: 0;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  color: var(--text-faint);
-  cursor: pointer;
-}
-.speak:hover { color: var(--accent); }
 
 .inputRow {
   display: flex;
   gap: 0.5rem;
   padding: 0.7rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 .input {
   flex: 1;
   resize: none;
-  border: 1px solid var(--border-strong);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 10px;
   padding: 0.55rem 0.7rem;
   font-family: inherit;
   font-size: 0.92rem;
-  background: var(--bg);
-  color: var(--text);
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
   max-height: 96px;
 }
+.input::placeholder { color: rgba(255, 255, 255, 0.45); }
 .input:focus { outline: none; border-color: var(--accent); }
 
 .send {

@@ -40,10 +40,19 @@ export default function ChatBot() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const listRef = useRef(null);
+  const greeted = useRef(false);
 
   useEffect(() => {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [messages, open, loading]);
+
+  // Speak the greeting the first time the chat is opened (a user gesture, so audio is allowed).
+  useEffect(() => {
+    if (open && endpoint && !greeted.current) {
+      greeted.current = true;
+      speak(GREETING.content, endpoint);
+    }
+  }, [open, endpoint]);
 
   // No endpoint configured yet -> don't render the widget at all.
   if (!endpoint) return null;
@@ -65,6 +74,7 @@ export default function ChatBot() {
       const data = await res.json();
       const reply = data.reply || "Sorry, I couldn't answer that. Try the contact links on the site.";
       setMessages((m) => [...m, {role: 'assistant', content: reply}]);
+      speak(reply, endpoint); // auto read the answer aloud in Hamza's voice
     } catch {
       setMessages((m) => [...m, {role: 'assistant', content: 'Network error, please try again.'}]);
     } finally {
@@ -78,6 +88,14 @@ export default function ChatBot() {
 
   return (
     <div className={styles.root}>
+      {/* Displacement map that warps the panel's backdrop for the liquid-glass look. */}
+      <svg width="0" height="0" style={{position: 'absolute'}} aria-hidden="true">
+        <filter id="glassDisplace">
+          <feTurbulence type="fractalNoise" baseFrequency="0.012 0.012" numOctaves="2" seed="7" result="noise" />
+          <feGaussianBlur in="noise" stdDeviation="2" result="soft" />
+          <feDisplacementMap in="SourceGraphic" in2="soft" scale="16" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </svg>
       {open && (
         <div className={styles.panel} role="dialog" aria-label="Chat with Hamza's assistant">
           <div className={styles.header}>
@@ -88,11 +106,6 @@ export default function ChatBot() {
             {messages.map((m, i) => (
               <div key={i} className={m.role === 'user' ? styles.user : styles.bot}>
                 <div className={styles.bubble}>{m.content}</div>
-                {m.role === 'assistant' && (
-                  <button className={styles.speak} onClick={() => speak(m.content, endpoint)} aria-label="Read aloud">
-                    Read aloud
-                  </button>
-                )}
               </div>
             ))}
             {loading && <div className={styles.bot}><div className={styles.bubble}>…</div></div>}
@@ -110,8 +123,16 @@ export default function ChatBot() {
           </div>
         </div>
       )}
-      <button className={styles.fab} onClick={() => setOpen((o) => !o)} aria-label="Open chat">
-        {open ? '×' : 'Chat'}
+      <button className={styles.fab} onClick={() => setOpen((o) => !o)} aria-label={open ? 'Close chat' : 'Open chat'}>
+        {open ? (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 3C6.99 3 3 6.36 3 10.5c0 2.2 1.13 4.17 2.94 5.52-.13 1.06-.6 2.3-1.54 3.32-.2.22-.06.58.23.6 1.86.12 3.6-.5 4.86-1.4 1.06.3 2.2.46 3.5.46 5.01 0 9-3.36 9-7.5S17.01 3 12 3z" />
+          </svg>
+        )}
       </button>
     </div>
   );
