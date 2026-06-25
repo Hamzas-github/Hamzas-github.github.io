@@ -302,7 +302,9 @@ header a,
   transition: text-decoration-color 0.25s ease, text-underline-offset 0.25s ease;
 }
 
-.mc-link:not(.liquid-glass) {
+main a:not(.button):hover,
+header a:hover,
+.navbar a:not(.navbar__brand):hover {
   text-decoration-color: var(--accent);
   text-underline-offset: 6px;
 }

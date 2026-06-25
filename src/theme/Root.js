@@ -2,13 +2,10 @@ import React, {useEffect} from 'react';
 import ChatBot from '@site/src/components/ChatBot';
 
 export default function Root({children}) {
-  // Magnetic orange-dot cursor. Idle: a visible dot following the mouse. Near a
-  // clickable element it spans into the element and fades out, handing off to the
-  // element's own hover effect (link underline, image glow).
+  // Orange-dot cursor that follows the mouse. Over an image it spans into the image
+  // and fades, handing off to the image glow. Links are no longer magnetic.
   useEffect(() => {
     if (!window.matchMedia('(pointer: fine)').matches) return;
-    const SEL = 'a, button, [role="button"], summary, input, textarea, select';
-    const SNAP = 44;
     const dot = document.createElement('div');
     dot.id = 'magic-cursor';
     document.body.appendChild(dot);
@@ -33,18 +30,7 @@ export default function Root({children}) {
 
     const onMove = (e) => {
       mx = e.clientX; my = e.clientY; visible = true;
-      const img = imageLike(e.target);
-      if (img) { setTarget(img, 'image'); return; }
-      let best = null, bestD = Infinity;
-      for (const el of document.querySelectorAll(SEL)) {
-        const r = el.getBoundingClientRect();
-        if (!r.width) continue;
-        const dx = Math.max(r.left - mx, 0, mx - r.right);
-        const dy = Math.max(r.top - my, 0, my - r.bottom);
-        const d = Math.hypot(dx, dy);
-        if (d < bestD) { bestD = d; best = el; }
-      }
-      setTarget(bestD <= SNAP ? best : null, 'link');
+      setTarget(imageLike(e.target), 'image');
     };
     const onLeave = () => { visible = false; };
     const onEnter = () => { visible = true; };
