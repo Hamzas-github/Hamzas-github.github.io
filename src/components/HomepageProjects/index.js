@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
@@ -37,7 +38,20 @@ function ProjectRow({title, year, summary, stack, to, repo, image}) {
  );
 }
 
+// Random order on each load. Shuffles after mount so the server-rendered HTML and the
+// first client paint match (no hydration mismatch), then reorders.
+function shuffle(arr) {
+ const a = [...arr];
+ for (let i = a.length - 1; i > 0; i--) {
+ const j = Math.floor(Math.random() * (i + 1));
+ [a[i], a[j]] = [a[j], a[i]];
+ }
+ return a;
+}
+
 export default function HomepageProjects() {
+ const [list, setList] = useState(projects);
+ useEffect(() => { setList(shuffle(projects)); }, []);
  return (
  <section id="work" className={styles.section}>
  <div className={clsx('container', styles.inner)}>
@@ -45,8 +59,8 @@ export default function HomepageProjects() {
  <p className="mono-label">02. Selected work</p>
  </div>
  <div className={styles.list}>
- {projects.map((p, i) => (
- <ProjectRow key={i} {...p} />
+ {list.map((p) => (
+ <ProjectRow key={p.title} {...p} />
  ))}
  </div>
  </div>
