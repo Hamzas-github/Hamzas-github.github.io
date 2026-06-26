@@ -182,13 +182,13 @@ function HomepageHeader() {
  {personal.name}
  </Heading>
  <p className={styles.heroRole}>
- Data Analyst &amp; AI Builder
+ <span className={styles.heroAccent}>Data Analyst &amp; AI Builder</span>
  </p>
  <p className={styles.heroLede}>
- I'm a data analyst who genuinely likes the messy part, taking raw,
- real-world data and turning it into answers people can actually use. Clean
- analysis, clear charts, and dashboards, built with SQL, Python (pandas),
- and Power BI.
+ I like the messy part of data, the cleaning most people avoid, and turning
+ it into answers people can actually use. These days I spend just as much
+ time shipping real products by directing AI tools like Claude, Cursor and
+ Codex, scoping the build, testing every path, and tightening it until it works.
  </p>
  <div className={styles.heroActions}>
  <Link className="button button--lg liquid-glass liquid-glass--accent" to="/#work">

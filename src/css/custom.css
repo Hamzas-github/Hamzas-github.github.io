@@ -13,6 +13,8 @@
   --accent-hover: #25708d;
   --accent-soft: rgba(45, 131, 166, 0.10);
   --accent-line: rgba(45, 131, 166, 0.30);
+  /* Selection uses the other theme's accent: orange in light mode, teal in dark. */
+  --accent-opposite: #cc7b57;
 
   /* Neutrals (cool) */
   --bg: #f4f7f9;
@@ -58,11 +60,22 @@
   --docusaurus-highlighted-code-line-bg: rgba(45, 131, 166, 0.10);
 }
 
+/* Text selection uses the opposite theme's accent (orange in light, teal in dark). */
+::selection {
+  background: var(--accent-opposite);
+  color: #fff;
+}
+::-moz-selection {
+  background: var(--accent-opposite);
+  color: #fff;
+}
+
 [data-theme='dark'] {
   --accent: #cc7b57;
   --accent-hover: #d98e6d;
   --accent-soft: rgba(204, 123, 87, 0.12);
   --accent-line: rgba(204, 123, 87, 0.30);
+  --accent-opposite: #2d83a6;
 
   --bg: #181715;
   --surface: #201e1b;
