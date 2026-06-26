@@ -182,7 +182,7 @@ function HomepageHeader() {
  {personal.name}
  </Heading>
  <p className={styles.heroRole}>
- Data Analyst, <span className={styles.heroAccent}>SQL, Python &amp; Power BI</span>
+ Data Analyst <span className={styles.heroAccent}>&amp; AI Builder</span>
  </p>
  <p className={styles.heroLede}>
  I'm a data analyst who genuinely likes the messy part, taking raw,
@@ -216,8 +216,8 @@ export default function Home() {
  const {siteConfig} = useDocusaurusContext();
  return (
  <Layout
- title={`${siteConfig.customFields.personal.name}, Data Analyst`}
- description="Data Analyst specializing in SQL, Python, and data visualization. Turning raw data into clear, decision-ready insights and dashboards.">
+ title={`${siteConfig.customFields.personal.name}, ${siteConfig.customFields.personal.role}`}
+ description="Data analyst and AI builder. SQL, Python and Power BI for the data, and shipping real products by directing AI tools like Claude, Cursor and Codex.">
  <HomepageHeader />
  <main>
  <HomepageFeatures />

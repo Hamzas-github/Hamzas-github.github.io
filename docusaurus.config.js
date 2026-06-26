@@ -10,8 +10,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const personal = {
   name: 'Hamza Farooq',
   fullName: 'Muhammad Hamza Farooq',
-  role: 'Data Analyst',
-  availability: 'Open to data analyst roles',
+  role: 'Data Analyst & AI Builder',
+  availability: 'Open to data and AI developer roles',
   location: 'United Kingdom',
   github: 'https://github.com/Hamzas-github',
   linkedin: 'https://www.linkedin.com/in/hamza-farooq-ai/',
@@ -28,8 +28,8 @@ const description =
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: `${personal.name} — Data Analyst`,
-  tagline: 'SQL · Python · Power BI · Data visualization',
+  title: `${personal.name} — ${personal.role}`,
+  tagline: 'Data analysis with SQL, Python and Power BI, and building products with AI',
   favicon: 'img/favicon.ico',
 
   future: {
