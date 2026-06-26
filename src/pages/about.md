@@ -1,44 +1,36 @@
 ---
 title: About
-description: A bit about Hamza Farooq, Data Analyst.
+description: Hamza Farooq, a London-based data analyst and builder who ships real products by directing AI tools.
 hide_table_of_contents: false
 ---
 
 # Hey, I'm Hamza
 
-I'm a data analyst, and honestly the part of the job most people groan about, the
-messy, half-labelled, "why is this column a string?" stage, is the part I enjoy most.
-There's something satisfying about taking a pile of raw rows nobody trusts and turning
-it into a clear answer someone can actually act on.
+I'm a data analyst and builder based in London. I came up through data, cleaning it,
+querying it, turning it into dashboards, and these days I spend just as much time shipping
+full products with AI.
 
-I taught myself most of this the way I think it sticks best: by picking real datasets,
-asking real questions, and not stopping until the numbers made sense and I could explain
-them to someone who isn't a data person. Every project on this site started as genuine
-curiosity, "wait, is that actually true?", and turned into something I was proud to
-write up.
+## How I build with AI
+
+I build by directing tools like Claude, Cursor and Codex rather than hand-writing every
+line. I scope the product, break it into small steps, let the AI draft the code, then test
+every path and tighten it until it holds up. I'd rather ship something that works than
+write code for its own sake.
+
+That's how I built the **[AI Portfolio Chatbot](/projects/ai-chatbot)** (the chat bubble on
+this site) and **[EyeSpeak](/projects/eyespeak)**, my eye-tracking communication board, end
+to end: define it, build the smallest working version, see what breaks, fix it, repeat. A
+QA habit from my web-testing work keeps me honest. I don't trust a build until I've tried
+to break it myself.
 
 ## What I reach for
 
-- **Wrangling & analysis:** Python (pandas, NumPy), SQL, SQLite
-- **Visualization & BI:** Matplotlib, Seaborn, Power BI
-- **How I work:** reproducible from raw data to result, careful about edge cases, and
- upfront about what the data *can't* tell you
-
-## How I think about a problem
-
-I try not to start with the data, I start with the question. What decision is this
-meant to support? From there it's usually: clean it carefully and write down every
-judgment call, build the features the question actually needs, answer it in SQL, then
-visualize it so the finding is obvious at a glance. And always a plain-English write-up
-at the end, including the limits, a chart you can't trust the edges of isn't a finding,
-it's a guess.
-
-You can see the whole arc in my
-**[London rental market analysis](/projects/london-rental-analysis)**.
+Python, SQL and JavaScript. LLMs and RAG. Cloudflare Workers and APIs. Power BI and pandas
+on the data side. I pick up whatever the project needs.
 
 ## Say hello
 
-I'm looking for data analyst roles, and I'm always happy to talk shop.
+I'm open to AI developer and data roles, and always happy to talk shop.
 
 - **GitHub:** [Hamzas-github](https://github.com/Hamzas-github)
 - **LinkedIn:** [hamza-farooq-ai](https://www.linkedin.com/in/hamza-farooq-ai/)
