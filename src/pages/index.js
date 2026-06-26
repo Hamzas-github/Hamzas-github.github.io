@@ -182,7 +182,7 @@ function HomepageHeader() {
  {personal.name}
  </Heading>
  <p className={styles.heroRole}>
- Data Analyst <span className={styles.heroAccent}>&amp; AI Builder</span>
+ Data Analyst &amp; AI Builder
  </p>
  <p className={styles.heroLede}>
  I'm a data analyst who genuinely likes the messy part, taking raw,
