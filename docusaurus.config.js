@@ -19,6 +19,8 @@ const personal = {
   // Profile photo: drop an image at static/img/<file> and set the path here
   // (e.g. 'img/hamza.jpg'). While null, a clean monogram placeholder is shown.
   photo: 'img/hamza.jpg',
+  // CV/resume PDF in static/. Served at <site>/Hamza-Farooq-CV.pdf.
+  cv: '/Hamza-Farooq-CV.pdf',
 };
 
 const description =
@@ -126,6 +128,7 @@ const config = {
           {to: '/about', label: 'About', position: 'left'},
           {href: personal.github, label: 'GitHub', position: 'right'},
           {href: personal.linkedin, label: 'LinkedIn', position: 'right'},
+          {href: personal.cv, label: 'CV', position: 'right', target: '_blank', rel: 'noopener'},
         ],
       },
       footer: {
